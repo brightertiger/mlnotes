@@ -1,1 +1,1 @@
-# statquest
+# Notes on Machine Learning
