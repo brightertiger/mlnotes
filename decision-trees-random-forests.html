@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Decision Trees &amp; Random Forests | Notes on ML</title>
+  <meta name="description" content="2 Decision Trees &amp; Random Forests | Notes on ML" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Decision Trees &amp; Random Forests | Notes on ML" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Decision Trees &amp; Random Forests | Notes on ML" />
+  
+  
+  
+
+<meta name="author" content="brightertiger" />
+
+
+<meta name="date" content="2022-03-20" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="boosting.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ML Notes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html"><i class="fa fa-check"></i><b>2</b> Decision Trees &amp; Random Forests</a>
+<ul>
+<li class="chapter" data-level="2.0.1" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#decision-trees"><i class="fa fa-check"></i><b>2.0.1</b> Decision Trees</a></li>
+<li class="chapter" data-level="2.0.2" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#splitting"><i class="fa fa-check"></i><b>2.0.2</b> Splitting</a></li>
+<li class="chapter" data-level="2.0.3" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#bias-variance-trade-off"><i class="fa fa-check"></i><b>2.0.3</b> Bias-Variance Trade-off</a></li>
+<li class="chapter" data-level="2.0.4" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#nature-of-decision-trees"><i class="fa fa-check"></i><b>2.0.4</b> Nature of Decision Trees</a></li>
+<li class="chapter" data-level="2.0.5" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#bagging"><i class="fa fa-check"></i><b>2.0.5</b> Bagging</a></li>
+<li class="chapter" data-level="2.0.6" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#random-forest"><i class="fa fa-check"></i><b>2.0.6</b> Random Forest</a></li>
+<li class="chapter" data-level="2.0.7" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#extratrees"><i class="fa fa-check"></i><b>2.0.7</b> ExtraTrees</a></li>
+<li class="chapter" data-level="2.0.8" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#variable-importance"><i class="fa fa-check"></i><b>2.0.8</b> Variable Importance</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>3</b> Boosting</a>
+<ul>
+<li class="chapter" data-level="3.0.1" data-path="boosting.html"><a href="boosting.html#overview"><i class="fa fa-check"></i><b>3.0.1</b> Overview</a></li>
+<li class="chapter" data-level="3.0.2" data-path="boosting.html"><a href="boosting.html#gradient-boosting"><i class="fa fa-check"></i><b>3.0.2</b> Gradient Boosting</a></li>
+<li class="chapter" data-level="3.0.3" data-path="boosting.html"><a href="boosting.html#adaboost-for-classification"><i class="fa fa-check"></i><b>3.0.3</b> Adaboost for Classification</a></li>
+<li class="chapter" data-level="3.0.4" data-path="boosting.html"><a href="boosting.html#notes"><i class="fa fa-check"></i><b>3.0.4</b> Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="xgboost.html"><a href="xgboost.html"><i class="fa fa-check"></i><b>4</b> XGBoost</a>
+<ul>
+<li class="chapter" data-level="4.0.1" data-path="xgboost.html"><a href="xgboost.html#mathematical-details"><i class="fa fa-check"></i><b>4.0.1</b> Mathematical Details</a></li>
+<li class="chapter" data-level="4.0.2" data-path="xgboost.html"><a href="xgboost.html#regression"><i class="fa fa-check"></i><b>4.0.2</b> Regression</a></li>
+<li class="chapter" data-level="4.0.3" data-path="xgboost.html"><a href="xgboost.html#classification"><i class="fa fa-check"></i><b>4.0.3</b> Classification</a></li>
+<li class="chapter" data-level="4.0.4" data-path="xgboost.html"><a href="xgboost.html#optimizations"><i class="fa fa-check"></i><b>4.0.4</b> Optimizations</a></li>
+<li class="chapter" data-level="4.0.5" data-path="xgboost.html"><a href="xgboost.html#comparisons"><i class="fa fa-check"></i><b>4.0.5</b> Comparisons</a></li>
+</ul></li>
+<li class="divider"></li>
+<li>Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes on ML</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="decision-trees-random-forests" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Decision Trees &amp; Random Forests</h1>
+<div id="decision-trees" class="section level3" number="2.0.1">
+<h3><span class="header-section-number">2.0.1</span> Decision Trees</h3>
+<ul>
+<li>Recursively split the input / feature space using stubs i.e. decision rules
+<ul>
+<li>Splits are parallel to the axis</li>
+</ul></li>
+<li>Mathematical Represenation
+<ul>
+<li><span class="math inline">\(R_j = \{ x : d_1 &lt;= t_1, d_2 &gt;= t_2 ... \}\)</span><br />
+</li>
+<li><span class="math inline">\(\hat Y_i = \sum_j w_j I\{x_i \in R_j\}\)</span></li>
+<li><span class="math inline">\(w_j = \frac{\sum_i y_i I \{x_i \in R_j\}}{\sum_i I \{x_i \in R_j\}}\)</span></li>
+</ul></li>
+<li>Types of Decision Trees
+<ul>
+<li>Binary Splits
+<ul>
+<li>Classification and Regression Trees (CART)</li>
+<li>C4.5</li>
+</ul></li>
+<li>Multiple Splits:
+<ul>
+<li>CHAID (Chi-Square Automatic Interaction Detection)</li>
+<li>ID3</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="splitting" class="section level3" number="2.0.2">
+<h3><span class="header-section-number">2.0.2</span> Splitting</h3>
+<ul>
+<li>Split Criteria for Classification Trees
+<ul>
+<li>The nodes are split to decrease inpurity in classification</li>
+<li>Gini Criterion
+<ul>
+<li><span class="math inline">\(1 - \sum_C p_{i}^2\)</span></li>
+<li>Probability that observation belongs to class i: <span class="math inline">\(p_i\)</span></li>
+<li>Misclassification:</li>
+<li>For a given class (say i):
+<ul>
+<li><span class="math inline">\(p_i \times p_{k \ne i} = p_i \times (1 - p_i)\)</span></li>
+</ul></li>
+<li>Across all classes:</li>
+<li><span class="math inline">\(\sum_C p_i \times (1 - p_i)\)</span></li>
+<li><span class="math inline">\(\sum_C p_i - \sum_c p_{i}^2\)</span></li>
+<li><span class="math inline">\(1 - \sum_c p_{i}^2\)</span></li>
+<li>Ranges from (0, 0.5)</li>
+</ul></li>
+<li>Entropy Criterion
+<ul>
+<li>Measure of uncertainly of a random variable</li>
+<li>Given an event E
+<ul>
+<li>p(E) = 1 <span class="math inline">\(\implies\)</span> No Surprise</li>
+<li>p(E) = 0 <span class="math inline">\(\implies\)</span> Huge Surprise</li>
+<li>Informaion Content: <span class="math inline">\(I(E) = \log(1 / p(E))\)</span></li>
+</ul></li>
+<li>Entropy is the expectation of this information content
+<ul>
+<li><span class="math inline">\(H(E) = - \sum p(E) \log(p(E))\)</span></li>
+<li>Maximum when all outcomes have same probability of occurance</li>
+</ul></li>
+<li>Ranges from (0, 1)</li>
+</ul></li>
+</ul></li>
+<li>Split Criteria for Regression Trees
+<ul>
+<li>Sum-Squared Error</li>
+<li><span class="math inline">\(\sum_i (Y_i - \bar Y)^2\)</span></li>
+</ul></li>
+<li>Finding the Split
+<ul>
+<li>For any candidate value:
+<ul>
+<li>Calculate the weighted average reduction in impurity / error</li>
+<li>Weights being the number of observations flowing in the child nodes</li>
+</ul></li>
+<li>Starting Gini
+<ul>
+<li><span class="math inline">\(\text{Gini}_{\text{Root}}\)</span></li>
+<li><span class="math inline">\(N_{\text{Root}}\)</span></li>
+</ul></li>
+<li>After Split
+<ul>
+<li>Child Nodes
+<ul>
+<li><span class="math inline">\(\text{Gini}_{\text{Left}}, N_{\text{Left}}\)</span></li>
+<li><span class="math inline">\(\text{Gini}_{\text{Right}}, N_{\text{Right}}\)</span></li>
+</ul></li>
+<li>Updated Gini
+<ul>
+<li><span class="math inline">\(\frac{N_{\text{Left}}}{N_{\text{Root}}} \times \text{Gini}_{\text{Left}} + \frac{N_{\text{Right}}}{N_{\text{Root}}} \times \text{Gini}_{\text{Right}}\)</span></li>
+</ul></li>
+</ul></li>
+<li>Find the split, the results in minimum updated Gini</li>
+<li>Updated Gini &lt;= Starting Gini</li>
+<li>Greedy algorithms to find the best splits</li>
+</ul></li>
+</ul>
+</div>
+<div id="bias-variance-trade-off" class="section level3" number="2.0.3">
+<h3><span class="header-section-number">2.0.3</span> Bias-Variance Trade-off</h3>
+<ul>
+<li>Bias
+<ul>
+<li>Measures ability of an ML algorithm to model true relationship between features and target</li>
+<li>Simplifying assumptions made by the model to learn the relationship
+<ul>
+<li>Example: Linear vs Parabolic relationship</li>
+</ul></li>
+<li>Low Bias: Less restrictive assupmtions</li>
+<li>High Bias: More restrictive assumptions</li>
+</ul></li>
+<li>Variance
+<ul>
+<li>The difference in model performance across different datasets drawn from the same distribution</li>
+<li>Low Variance: Small changes to model perforamance with changes in datasets</li>
+<li>High Variance: Large changes to model perforamance with changes in datasets</li>
+</ul></li>
+<li>Irreducible Error
+<ul>
+<li>Bayes error</li>
+<li>Cannot be reduced irrespective of the model form</li>
+</ul></li>
+<li>Best model minimizes: <span class="math inline">\(\text{MSE} = \text{bias}^2 + \text{variance}\)</span></li>
+<li>Decision trees have low bias and high variance</li>
+<li>Decision trees are prone to overfitting
+<ul>
+<li>Noisy Samples</li>
+<li>Small data samples in nodes down the tree</li>
+<li>Tree Pruning solves for overfitting
+<ul>
+<li>Adding a cost term to objetive which captures tree complexity</li>
+<li><span class="math inline">\(\text{Tree Score} = SSR + \alpha T\)</span></li>
+<li>As the tree grows in size, the reduction in SSR has to more than offset the complexity cost</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="nature-of-decision-trees" class="section level3" number="2.0.4">
+<h3><span class="header-section-number">2.0.4</span> Nature of Decision Trees</h3>
+<ul>
+<li>Decision Trees can model non-linear relationships (complex deicison boundaries)</li>
+<li>Spline regressions cannot achieve the same results
+<ul>
+<li>Spline adds indicator variables to capture interactions and create kinks</li>
+<li>But the decision boundary has to be continuous</li>
+<li>The same restriction doesn’t apply to decision trees</li>
+</ul></li>
+<li>Decision Trees don’t require feature sscaling</li>
+<li>Decision Trees are less sensitive to outliers
+<ul>
+<li>Outliers are of various kinds:
+<ul>
+<li>Outliers: Points with extreme values
+<ul>
+<li>Input Features
+<ul>
+<li>Doesn’t impact Decision Trees</li>
+<li>Split finding will ignore the extreme values</li>
+</ul></li>
+<li>Output / Target</li>
+</ul></li>
+<li>Influential / High-Leverage Points: Undue influence on model</li>
+</ul></li>
+</ul></li>
+<li>Decision Trees cannot extrapolate well to ranges outside the training data</li>
+<li>Decision trees cannot capture linear time series based trends / seasonality</li>
+</ul>
+</div>
+<div id="bagging" class="section level3" number="2.0.5">
+<h3><span class="header-section-number">2.0.5</span> Bagging</h3>
+<ul>
+<li>Bootstrap Agrregation</li>
+<li>Sampling with repetition
+<ul>
+<li>Given Dataset of Size N</li>
+<li>Draw N samples with replacement</li>
+<li>Probability that a point (say i) never gets selected
+<ul>
+<li><span class="math inline">\((1 - \frac{1}{N})^N \approx \frac{1}{e}\)</span></li>
+</ul></li>
+<li>Probability that a point (say i) gets selected atleast once
+<ul>
+<li><span class="math inline">\(1 - \frac{1}{e} \approx 63\%\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="random-forest" class="section level3" number="2.0.6">
+<h3><span class="header-section-number">2.0.6</span> Random Forest</h3>
+<ul>
+<li>Use bootstrap aggregation (bagging) to create multiple datasets
+<ul>
+<li>“Random” subspace of dataset</li>
+</ul></li>
+<li>Use subset of variables for split at each node
+<ul>
+<li>sqrt for classification</li>
+<li>m//3 for regression</li>
+</ul></li>
+<li>Comparison to single decision tree
+<ul>
+<li>Bias remains the same</li>
+<li>Variance decreases</li>
+<li>Randomness in data and slpits reduces the correlation in prediction across trees</li>
+<li>Let <span class="math inline">\(\hat y_i\)</span> be the prediction from ith tree in the forest</li>
+<li>Let <span class="math inline">\(\sigma^2\)</span> be the variance of <span class="math inline">\(\hat y_i\)</span></li>
+<li>Let <span class="math inline">\(\rho\)</span> be the correlation between two trees in the forest</li>
+<li><span class="math inline">\(V(\sum_i \hat y_i) = \sum V(\hat y_i) + 2 \sum\sum COV(\hat y_i, \hat y_j)\)</span></li>
+<li><span class="math inline">\(V(\sum_i \hat y_i) = n \sigma^2 + n(n-1) \rho \sigma^2\)</span></li>
+<li><span class="math inline">\(V( \frac{1}{n} \sum_i \hat y_i) = \rho \sigma^2 + \frac{1-\rho}{n} \sigma^2\)</span></li>
+<li>Variance goes down as more trees are added, but bias stays put</li>
+</ul></li>
+<li>Output Combination
+<ul>
+<li>Majority Voting for Classification</li>
+<li>Averaging for Regression</li>
+</ul></li>
+<li>Out-of-bag (OOB) Error
+<ul>
+<li>Use the non-selected rows in bagging to estimate model performance</li>
+<li>Comparable to cross-validaiton results</li>
+</ul></li>
+<li>Proximity Matrix
+<ul>
+<li>Use OOB observations</li>
+<li>Count the number of times each pair goes to the same terminal node</li>
+<li>Identifies observations that are close/similar to each other</li>
+</ul></li>
+</ul>
+</div>
+<div id="extratrees" class="section level3" number="2.0.7">
+<h3><span class="header-section-number">2.0.7</span> ExtraTrees</h3>
+<ul>
+<li>Extremely Randomized Trees</li>
+<li>Bagging:
+<ul>
+<li>ExtraTrees: No</li>
+<li>Extremely Randomized Trees: Yes</li>
+</ul></li>
+<li>Mutiple trees are built using:
+<ul>
+<li>Random variable subset for splitting</li>
+<li>Random threshold subsets for a variable for splitting</li>
+</ul></li>
+</ul>
+</div>
+<div id="variable-importance" class="section level3" number="2.0.8">
+<h3><span class="header-section-number">2.0.8</span> Variable Importance</h3>
+<ul>
+<li>Split-based importance
+<ul>
+<li>If variable j is used for split
+<ul>
+<li>Calculate the improvement in Gini at the split</li>
+</ul></li>
+<li>Sum this improvement across all trees and splits wherever jth variable is used</li>
+<li>Alternate is to calculate the number of times variable is used for splitting</li>
+<li>Biased in favour of continuous variables which can be split multiple times</li>
+</ul></li>
+<li>Permutation-based importance / Boruta
+<ul>
+<li>Use OOB samples to calculate variable importance</li>
+<li>Take bth tree:
+<ul>
+<li>Pass the OOB samples and calculate accuracy</li>
+<li>Permuate jth variable and calculate the decrease in accuracy</li>
+</ul></li>
+<li>Average this decrease in accuracy across all trees to calculate variable importance for j</li>
+<li>Effect is simialr to setting the coefficient to 0 in regression</li>
+<li>Takes into account if good surrogates are present in the dataset</li>
+</ul></li>
+<li>Partial Dependence Plots
+<ul>
+<li>Marginal effect of of a feature on target</li>
+<li>Understand the relationship between feature and target</li>
+<li>Assumes features are not correlated</li>
+<li><span class="math inline">\(\hat f(x_s) =\frac{1}{C} \sum f(x_s,x_i)\)</span></li>
+<li>Average predictions over all other variables</li>
+<li>Can be used to identify important interactions
+<ul>
+<li>Friedman’s H Statistic</li>
+<li>If features don’t interact Joint PDP can be decomposed into marginals</li>
+</ul></li>
+</ul></li>
+<li>Shapely Values
+<ul>
+<li>Model agnositc feature importance</li>
+</ul></li>
+<li>LIME</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="boosting.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

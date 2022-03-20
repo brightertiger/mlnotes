@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Boosting | Notes on ML</title>
+  <meta name="description" content="3 Boosting | Notes on ML" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Boosting | Notes on ML" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Boosting | Notes on ML" />
+  
+  
+  
+
+<meta name="author" content="brightertiger" />
+
+
+<meta name="date" content="2022-03-20" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="decision-trees-random-forests.html"/>
+<link rel="next" href="xgboost.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ML Notes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html"><i class="fa fa-check"></i><b>2</b> Decision Trees &amp; Random Forests</a>
+<ul>
+<li class="chapter" data-level="2.0.1" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#decision-trees"><i class="fa fa-check"></i><b>2.0.1</b> Decision Trees</a></li>
+<li class="chapter" data-level="2.0.2" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#splitting"><i class="fa fa-check"></i><b>2.0.2</b> Splitting</a></li>
+<li class="chapter" data-level="2.0.3" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#bias-variance-trade-off"><i class="fa fa-check"></i><b>2.0.3</b> Bias-Variance Trade-off</a></li>
+<li class="chapter" data-level="2.0.4" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#nature-of-decision-trees"><i class="fa fa-check"></i><b>2.0.4</b> Nature of Decision Trees</a></li>
+<li class="chapter" data-level="2.0.5" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#bagging"><i class="fa fa-check"></i><b>2.0.5</b> Bagging</a></li>
+<li class="chapter" data-level="2.0.6" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#random-forest"><i class="fa fa-check"></i><b>2.0.6</b> Random Forest</a></li>
+<li class="chapter" data-level="2.0.7" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#extratrees"><i class="fa fa-check"></i><b>2.0.7</b> ExtraTrees</a></li>
+<li class="chapter" data-level="2.0.8" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#variable-importance"><i class="fa fa-check"></i><b>2.0.8</b> Variable Importance</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>3</b> Boosting</a>
+<ul>
+<li class="chapter" data-level="3.0.1" data-path="boosting.html"><a href="boosting.html#overview"><i class="fa fa-check"></i><b>3.0.1</b> Overview</a></li>
+<li class="chapter" data-level="3.0.2" data-path="boosting.html"><a href="boosting.html#gradient-boosting"><i class="fa fa-check"></i><b>3.0.2</b> Gradient Boosting</a></li>
+<li class="chapter" data-level="3.0.3" data-path="boosting.html"><a href="boosting.html#adaboost-for-classification"><i class="fa fa-check"></i><b>3.0.3</b> Adaboost for Classification</a></li>
+<li class="chapter" data-level="3.0.4" data-path="boosting.html"><a href="boosting.html#notes"><i class="fa fa-check"></i><b>3.0.4</b> Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="xgboost.html"><a href="xgboost.html"><i class="fa fa-check"></i><b>4</b> XGBoost</a>
+<ul>
+<li class="chapter" data-level="4.0.1" data-path="xgboost.html"><a href="xgboost.html#mathematical-details"><i class="fa fa-check"></i><b>4.0.1</b> Mathematical Details</a></li>
+<li class="chapter" data-level="4.0.2" data-path="xgboost.html"><a href="xgboost.html#regression"><i class="fa fa-check"></i><b>4.0.2</b> Regression</a></li>
+<li class="chapter" data-level="4.0.3" data-path="xgboost.html"><a href="xgboost.html#classification"><i class="fa fa-check"></i><b>4.0.3</b> Classification</a></li>
+<li class="chapter" data-level="4.0.4" data-path="xgboost.html"><a href="xgboost.html#optimizations"><i class="fa fa-check"></i><b>4.0.4</b> Optimizations</a></li>
+<li class="chapter" data-level="4.0.5" data-path="xgboost.html"><a href="xgboost.html#comparisons"><i class="fa fa-check"></i><b>4.0.5</b> Comparisons</a></li>
+</ul></li>
+<li class="divider"></li>
+<li>Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes on ML</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="boosting" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Boosting</h1>
+<div id="overview" class="section level3" number="3.0.1">
+<h3><span class="header-section-number">3.0.1</span> Overview</h3>
+<ul>
+<li>Combine multiple rules of thumb to make an accurate and informed decision
+<ul>
+<li>Bagging: Models are buit in parallel on different data subsets</li>
+<li>Boosting: Models are built in sequence with modified different samples weights
+<ul>
+<li><span class="math inline">\(F(x_i) = \sum_m \alpha_m f_m(x_i)\)</span></li>
+<li><span class="math inline">\(f_m\)</span> and <span class="math inline">\(\alpha_m\)</span> are fit jointly</li>
+</ul></li>
+</ul></li>
+<li>PAC Learning Framework
+<ul>
+<li>Probably Approximately Correct</li>
+<li>Is the problem learnable?</li>
+<li>Model has error <span class="math inline">\(&lt; \epsilon\)</span> with probability <span class="math inline">\(&gt; (1 -\delta)\)</span></li>
+</ul></li>
+<li>An algorithm that satisfies the PAC thresholds is a strong learner</li>
+<li>Strong learners are complex models with many parameters and require a lot of training data</li>
+<li>Weak learners are algorithms that perform slightly better than random guessing</li>
+<li>Schapire: Strength of Weak Learnability
+<ul>
+<li>If a problem can be solved by strong learner, it can be solved by a collection of weak learners.</li>
+<li>Hypothesis boosting mechanism</li>
+<li>Construct three hypotheses, trained on different data subsets
+<ul>
+<li>H1: Complete Data</li>
+<li>H2: Balanced Sampling of correct and incorrect predictions from H1</li>
+<li>H3: Disagreements between H1 and H2 predictions</li>
+<li>Scoring: Majority Voting of H1, H2 and H3</li>
+</ul></li>
+<li>Improved performance but cannot be scaled easily</li>
+</ul></li>
+<li>Adaboost - Adaptive Boosting
+<ul>
+<li>Additive Model</li>
+<li>Contruct many hypothesis (more than three)</li>
+<li>The importance/weight of each new hypotheses added “adapts” or changes
+<ul>
+<li><span class="math inline">\(\alpha_m = \frac{1}{2}\log\lbrack \frac{1-\epsilon_m}{\epsilon_m} \rbrack\)</span></li>
+<li><span class="math inline">\(\epsilon_m\)</span> si the weighted classification error</li>
+</ul></li>
+<li>Every sample has a weight associated while constructing a weak hypothesis
+<ul>
+<li>Exponential Weighting scheme</li>
+<li>Correctly Classifier: <span class="math inline">\(w_i = w_i \times \exp^{\alpha}\)</span></li>
+<li>Incorrectly Classifier: <span class="math inline">\(w_i = w_i \times \exp^{-\alpha}\)</span></li>
+</ul></li>
+<li>Underfitting: Not enough hypothesis added to ensemble</li>
+<li>Overfitting: Not using weak learners as hypothesis</li>
+</ul></li>
+<li>Gradient Boosting
+<ul>
+<li>Uses gradients of the loss function to compute the weights</li>
+<li>Gradients are a proxy of how poorly a data point is classified</li>
+<li>Adaboost is a special case of gradient boosting</li>
+</ul></li>
+</ul>
+</div>
+<div id="gradient-boosting" class="section level3" number="3.0.2">
+<h3><span class="header-section-number">3.0.2</span> Gradient Boosting</h3>
+<ul>
+<li>Boosting paradigm extended to general loss functions
+<ul>
+<li>Beyond squared and exponential loss</li>
+<li>Any loss function that’s differentiable and convex</li>
+<li>Gradient Descent + Boosting</li>
+</ul></li>
+<li>Derivation
+<ul>
+<li><span class="math inline">\(F(x_i) = \sum_m \alpha_m f_m(x_i)\)</span></li>
+<li><span class="math inline">\(f_m(x_i) = \arg \min_{f \in H} L(F(x_i) + \alpha f_m(x_i))\)</span></li>
+<li>This optimization is analogous to gradient descent in functional space</li>
+<li>Taylor Approximation
+<ul>
+<li><span class="math inline">\(\min L(F(x_i) + \alpha f_m(x_i))\)</span></li>
+<li><span class="math inline">\(\min L(F(x_i)) + &lt;\alpha f_m(x_i), \frac{\delta L}{\delta F} &gt;\)</span>
+<ul>
+<li>The first term is constant</li>
+<li>The second term is inner product over two functions</li>
+</ul></li>
+<li><span class="math inline">\(\min &lt;\alpha f_m(x_i), \frac{\delta L}{\delta F} &gt;\)</span>
+<ul>
+<li>Only interested in the behaviour of these function over training data</li>
+<li>Evaluate this functions at different points in training data</li>
+<li>Take the inner product</li>
+</ul></li>
+<li><span class="math inline">\(\min \sum_i \frac{\delta L}{\delta F(x_i)} \times \alpha f(x_i)\)</span></li>
+<li>Pseudo-Residual
+<ul>
+<li><span class="math inline">\(-\frac{\delta L}{\delta F(x_i)}\)</span></li>
+</ul></li>
+<li><span class="math inline">\(\min - \sum_i r_i \times \alpha f(x_i)\)</span></li>
+<li>The ensemble makes improvement as long as <span class="math inline">\(\sum_i r_i f(x_i) &lt; 0\)</span></li>
+</ul></li>
+<li>Modifications for CART:
+<ul>
+<li>Using CART as weak learners</li>
+<li>The minimization problem from Taylor approx can’t be directly optimized by CART</li>
+<li>Need to modify this to a functional form that can be easily handled (squared loss)
+<ul>
+<li><span class="math inline">\(r_i\)</span> is independent of <span class="math inline">\(f_m\)</span>, hence <span class="math inline">\(\sum r_i ^2\)</span> is a constant</li>
+<li><span class="math inline">\(\sum \alpha f_m (x_i) ^2\)</span> can also be treated as a constant
+<ul>
+<li>Scale factor to restrict the predictions to certain range</li>
+</ul></li>
+<li><span class="math inline">\(\min \sum r_i ^2 -2 \sum_i r_i \times \alpha f(x_i) + \sum \alpha f_m (x_i) ^2\)</span></li>
+<li><span class="math inline">\(\min \sum (r_i - \alpha f(x_i))^2\)</span></li>
+<li>This squared-loss can be minimized by CART easily</li>
+</ul></li>
+<li>Optimal value of <span class="math inline">\(\alpha\)</span> via Line Search
+<ul>
+<li><span class="math inline">\(L = \sum (r_i - \alpha f(x_i))^2\)</span></li>
+<li><span class="math inline">\(\alpha^* = \frac{\sum r_i f(x_i)}{\sum f(x_i)^2} \approx 1\)</span></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>Algorithm
+<ul>
+<li>Given
+<ul>
+<li>Data <span class="math inline">\(\lbrace x_i, y_i \rbrace\)</span></li>
+<li>Loss Function <span class="math inline">\(L(y_i, F(x_i))\)</span></li>
+</ul></li>
+<li>Initialize the model with a constant value
+<ul>
+<li><span class="math inline">\(\min L(y_i, \gamma)\)</span></li>
+</ul></li>
+<li>Compute the pseudo residual
+<ul>
+<li><span class="math inline">\(r_{im} = -\frac{\delta L(y_i, F(x_i))}{\delta F(x_i)}\)</span><br />
+</li>
+</ul></li>
+<li>Build the new weak learner on pseudo residuals
+<ul>
+<li>Say a decision tree</li>
+<li><span class="math inline">\(\gamma_{jm} = \arg\min \sum_{x_\in R_{ij}} L(y_i, F_m(x_i) + \gamma)\)</span></li>
+<li>Optimal <span class="math inline">\(\gamma_{jm}\)</span> value is the average of residuals in the leaf node j
+<ul>
+<li>Only in case of squared loss L in regression setting</li>
+</ul></li>
+</ul></li>
+<li>Update the ensemble
+<ul>
+<li><span class="math inline">\(F_{m+1}(x_i) = F_m(x_i) + \nu \sum_j \gamma_{jm} I(x_i \in R_{jm})\)</span></li>
+<li><span class="math inline">\(\nu\)</span> is the step size or shrinkage</li>
+<li>It prevents overfitting</li>
+<li>1st order Taylor approximation works only for small changes</li>
+</ul></li>
+</ul></li>
+<li>Extension to Classification
+<ul>
+<li>Build a weak learner to predict log-odds</li>
+<li>Log Odds to Probability: <span class="math inline">\(p = \frac{e^{\log(odds)}}{1+ e^{\log(odds)}}\)</span><br />
+</li>
+<li>Objective is to minimize Negative Log-Likelihood
+<ul>
+<li><span class="math inline">\(NLL = - \sum y_i \log(p_i) + (1 - y_i) \log(1-p_i)\)</span></li>
+<li><span class="math inline">\(NLL = - \sum y_i \log(\frac{p_i}{1-p_i}) + log(1-p_i)\)</span></li>
+<li><span class="math inline">\(NLL = - \sum y_i \log(odds) - \log(1 + \exp^{\log(odds)})\)</span></li>
+</ul></li>
+<li>Compute Psuedo Residuals
+<ul>
+<li><span class="math inline">\(\frac{\delta NLL}{\delta \log(odds)}\)</span></li>
+<li><span class="math inline">\(r_{im} = p_i - y_i\)</span></li>
+</ul></li>
+<li>Algorithm
+<ul>
+<li>Given
+<ul>
+<li>Data <span class="math inline">\(\lbrace x_i, y_i \rbrace\)</span></li>
+<li>Loss Function <span class="math inline">\(L(y_i, F(x_i))\)</span></li>
+</ul></li>
+<li>Initialize the model with a constant value
+<ul>
+<li>Log-Odds that minimizes NLL</li>
+<li><span class="math inline">\(\min L(y_i, \gamma)\)</span></li>
+</ul></li>
+<li>Calculate Psuedo Residuals
+<ul>
+<li><span class="math inline">\(r_{im} = p_i - y_i\)</span></li>
+</ul></li>
+<li>Build the new weak learner on pseudo residuals
+<ul>
+<li><span class="math inline">\(\gamma_{jm} = \arg \min \sum_{x_\in R_{ij}} L(y_i, F_m(x_i) + \gamma)\)</span></li>
+<li>Minimizing this function not easy</li>
+<li>Use 2nd order Taylor Approximation -
+<ul>
+<li><span class="math inline">\(\min L(y_i, F(x_i) + \gamma) = C + \gamma \frac{dL}{dF} + {1 \over 2}\gamma^2 \frac{d^2L}{dF^2}\)</span></li>
+<li><span class="math inline">\(\gamma^* = - \frac{dL}{dF} / \frac{d^2L}{dF^2}\)</span></li>
+<li><span class="math inline">\(\frac{dL}{dF} = p_i - y_i\)</span></li>
+<li><span class="math inline">\(\frac{d^2L}{dF^2} = p_i (1 - p_i)\)</span></li>
+</ul></li>
+<li><span class="math inline">\(\gamma^* = \frac{p_i - y_i}{p_i (1 - p_i)}\)</span></li>
+</ul></li>
+<li>Update the ensemble
+<ul>
+<li><span class="math inline">\(F_{m+1}(x_i) = F_m(x_i) + \nu \sum_j \gamma_{jm} I(x_i \in R_{jm})\)</span></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="adaboost-for-classification" class="section level3" number="3.0.3">
+<h3><span class="header-section-number">3.0.3</span> Adaboost for Classification</h3>
+<ul>
+<li>Additively combines many weak learners to make classifications</li>
+<li>Adaptively re-weights incorrectly classified points</li>
+<li>Some weak learners get more weights in the final ensemble than others</li>
+<li>Each subsequent learner accounts for the mistakes made by the previous one</li>
+<li>Uses exponential loss
+<ul>
+<li><span class="math inline">\(y \in \{-1,1\}\)</span></li>
+<li><span class="math inline">\(L(y_i, f(x_i)) = \exp^{-y_i f(x_i)}\)</span></li>
+<li>Upper bound on 0-1 loss, same as logistic loss</li>
+<li>Rises more sharply than logistic loss in case of wrong predictions</li>
+<li>LogitBoost minimizes logistic loss
+<ul>
+<li><span class="math inline">\(\log(1 + \exp^{-y_i f(x_i)})\)</span><br />
+</li>
+</ul></li>
+</ul></li>
+<li>Objective Function
+<ul>
+<li>Additive Ensemble: <span class="math inline">\(F(x) = \sum_m \alpha_j f_j(x)\)</span></li>
+<li>Loss: <span class="math inline">\(L = \sum_i \exp^{-\frac{1}{2} y_i \times F(x)}\)</span></li>
+<li>At mth round:
+<ul>
+<li><span class="math inline">\(L = \sum_i \exp^{- \frac{1}{2} y_i \times \sum_m \alpha_m f_m(x)}\)</span></li>
+<li><span class="math inline">\(L = \sum_i \exp^{-\frac{1}{2} y_i \times \sum_{m-1} \alpha_j f_j(x)} \times \exp^{- \frac{1}{2} y_i \alpha_m f_m(x_i)}\)</span></li>
+<li>Assume all the values till m-1 as constant</li>
+<li><span class="math inline">\(L = \sum_i w^m_i \times \exp^{- \frac{1}{2} y_i \alpha_m f_m(x_i)}\)</span></li>
+<li>Minimizie E wrt to <span class="math inline">\(\alpha_m\)</span> to find the optimal value</li>
+<li><span class="math inline">\(L = \sum_{corr} w^m_i \exp^{- \frac{1}{2} \alpha_m} + \sum_{incorr} w^m_i \exp^{ \frac{1}{2} \alpha_m}\)</span></li>
+<li>Assuming <span class="math inline">\(\epsilon_m\)</span> as the weighted misclassification error</li>
+<li><span class="math inline">\(L = \epsilon_m \exp^{\frac{1}{2} \alpha_m} + (1-\epsilon_m) \exp^{- \frac{1}{2} \alpha_m}\)</span></li>
+<li>Optimal value of <span class="math inline">\(\alpha_m^* = \frac{1}{2}\log\lbrack \frac{1-\epsilon_m}{\epsilon_m} \rbrack\)</span></li>
+</ul></li>
+</ul></li>
+<li>Algorithm
+<ul>
+<li>Initialization: Give equal weights to all observations</li>
+<li>For next m rounds:
+<ul>
+<li>Fit a weak learner</li>
+<li>Calculate weighted error <span class="math inline">\(\epsilon_m\)</span>
+<ul>
+<li><span class="math inline">\(\epsilon_m = \frac{\sum_i w_i^m I(y_i \ne f_m(x_i))}{\sum_i w_i^m}\)</span></li>
+</ul></li>
+<li>Calculate the weight of the new weak learner
+<ul>
+<li><span class="math inline">\(\alpha_m = \frac{1}{2}\log\lbrack \frac{1-\epsilon_m}{\epsilon_m} \rbrack\)</span></li>
+</ul></li>
+<li>Update the sample weights
+<ul>
+<li><span class="math inline">\(w_i^{m+1} = w_i^{m} \times \exp^{\alpha^m \times I(y_i \ne f_m(x_i))}\)</span></li>
+</ul></li>
+<li>Normalize
+<ul>
+<li>Scale factor <span class="math inline">\(2 \sqrt{\epsilon(1-\epsilon)}\)</span></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>Can be modified to work with regression problems</li>
+</ul>
+</div>
+<div id="notes" class="section level3" number="3.0.4">
+<h3><span class="header-section-number">3.0.4</span> Notes</h3>
+<ul>
+<li>Gradient boosting uses weak learners which have high bias and low variance and gradually reduces the bias over the ensemble by sequentially combining these weak learners</li>
+<li>Chronology:
+<ul>
+<li>Adaboost</li>
+<li>Adaboost as gradient descent</li>
+<li>Generalize adaboost to any gradient descent</li>
+</ul></li>
+<li>Difference between Gradient Descent and Gradient Boosting
+<ul>
+<li>In gradient descent, the gradients are used to update parameters of the model</li>
+<li>In gradient boosting, the gradients are used to build new models</li>
+<li>Gradient boosting is a meta model that combines weak learners</li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="decision-trees-random-forests.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="xgboost.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
