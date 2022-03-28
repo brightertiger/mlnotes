@@ -19,3 +19,14 @@ regression
 classification
 optimizations
 comparisons
+clustering
+hierarchical-agglomerative-clustering
+k-means-clustering
+spectral-clustering
+dbscan
+support-vector-machines
+linear-svm
+dimensionality-reduction
+background
+principal-component-analysis
+stochastic-neighbour-embedding-sne

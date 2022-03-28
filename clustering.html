@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Notes on ML</title>
-  <meta name="description" content="Notes on ML" />
+  <title>5 Clustering | Notes on ML</title>
+  <meta name="description" content="5 Clustering | Notes on ML" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Notes on ML" />
+  <meta property="og:title" content="5 Clustering | Notes on ML" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Notes on ML" />
+  <meta name="twitter:title" content="5 Clustering | Notes on ML" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="decision-trees-random-forests.html"/>
+<link rel="prev" href="xgboost.html"/>
+<link rel="next" href="support-vector-machines.html"/>
 <script src="libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -137,26 +137,172 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Notes on ML</h1>
-<p class="author"><em>brightertiger</em></p>
-<p class="date"><em>2022-03-28</em></p>
-</div>
-<div id="about" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> About</h1>
+<div id="clustering" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Clustering</h1>
 <ul>
-<li><p>Hi I am brightertiger! I am a data scientist looking to expand my knowledge about ML.</p></li>
-<li><p>This is a collection of <em>notes</em> on machine learning concepts based mostly on Statquest along with a few other resources.</p></li>
+<li>Unsupervised learning technique</li>
+<li>Assign similar data points to a single group / cluster</li>
+</ul>
+<div id="hierarchical-agglomerative-clustering" class="section level3" number="5.0.1">
+<h3><span class="header-section-number">5.0.1</span> Hierarchical Agglomerative Clustering</h3>
+<ul>
+<li>At each step, merge the two most similar groups</li>
+<li>Keep giong unit there is a single group left</li>
+<li>Similarity between groups
+<ul>
+<li>Single Link: Distance between the two closest members of each group</li>
+<li>Complete Link: Distance between the two farthest members of each group</li>
+<li>Average Link: Average Diatnace between all pairs</li>
+</ul></li>
+</ul>
+</div>
+<div id="k-means-clustering" class="section level3" number="5.0.2">
+<h3><span class="header-section-number">5.0.2</span> K-Means Clustering</h3>
+<ul>
+<li>Hierarchical Clustering is very slow</li>
+<li>Algorithm
+<ul>
+<li>Assume there are K (hyperparameter) clusters</li>
+<li>Assign each data point to it’s nearest cluster center
+<ul>
+<li><span class="math inline">\(z_n^* = \arg \min ||x_n - \mu_k ||^2\)</span></li>
+</ul></li>
+<li>Update the cluster centers at the end of assignments
+<ul>
+<li><span class="math inline">\(\mu_k = {1 \over N_k}\sum_{n, z_n=k} x_n\)</span></li>
+</ul></li>
+</ul></li>
+<li>Objective
+<ul>
+<li>Minimize distortion</li>
+<li><span class="math inline">\(L = \sum_{n} ||x_n - \mu_{z_n}||^2\)</span></li>
+</ul></li>
+<li>Non-Convex objective, sensitive to intialization</li>
+<li>Multiple Restarts to control randomness</li>
+<li>K-Means++ Algorithm
+<ul>
+<li>Pick centers sequentially to cover the data</li>
+<li>Pick initial points randomly</li>
+<li>For subsequent rounds, initialize with points picked with probability proportional to the distance from it’s cluster center</li>
+<li>Points far away from the cluster center are morelikely to picked in subsequent iterations</li>
+</ul></li>
+<li>K-Medoids Algorithm
+<ul>
+<li>More robust to outliers</li>
+<li>Dont update the cluster center with mean</li>
+<li>Use average dissimilarity to all other points in the cluster (i.e. medoid)</li>
+<li><span class="math inline">\(z_n^* = \arg \min d(x_n,\mu_k)\)</span></li>
+<li><span class="math inline">\(\mu_k^* = \arg \min_n \sum_{n&#39;} d(x_n,x_n&#39;)\)</span></li>
+<li>Point has smallest sum of distances to all other points</li>
+<li>Partitioning around medoid
+<ul>
+<li>Swap the current medoid center with a non-medoid to see if the cost decreases</li>
+</ul></li>
+</ul></li>
+<li>Selecting the number of Clusters
+<ul>
+<li>Minimize Distortion
+<ul>
+<li>Use a validation dataset</li>
+<li>Select the parameter that minimizes distortion on validation</li>
+<li>But usually it descreases monotonically with number of clusters</li>
+</ul></li>
+<li>Elbow method
+<ul>
+<li>Rate at which distortion goes down with number of clusters</li>
+</ul></li>
+<li>Silhoutte Coefficient
+<ul>
+<li>How similar object is to it’s own cluster compared to other clusters</li>
+<li>Measures Compactness</li>
+<li>Given data point i
+<ul>
+<li><span class="math inline">\(a_i\)</span> = (Mean distance to observations in own cluster)</li>
+<li><span class="math inline">\(b_i\)</span> = (Mean Distance ot observations in the next closest cluster)</li>
+</ul></li>
+<li><span class="math inline">\(S_i = (a_i - b_i) / \max(a_i, b_i)\)</span></li>
+<li>Average the score for all the K clusters</li>
+<li>Ideal value is 1, worst value is -1</li>
+</ul></li>
+</ul></li>
+<li>K-Means is a variant of EM
+<ul>
+<li>K-Means assumes that clusters are spherical</li>
+<li>Hard assignment in K-Means vs Soft Assignment in EM</li>
+</ul></li>
+</ul>
+</div>
+<div id="spectral-clustering" class="section level3" number="5.0.3">
+<h3><span class="header-section-number">5.0.3</span> Spectral Clustering</h3>
+<ul>
+<li>Clusters in a graph</li>
+<li>Find a subgraph
+<ul>
+<li>Maxmimum number of within cluster connections</li>
+<li>Minimum number of between cluster connections</li>
+</ul></li>
+<li>Calculate degree and adjacency matrix</li>
+<li>Calculate the graph Laplacian <span class="math inline">\(L=D-A\)</span>
+<ul>
+<li>0 if the nodes are not connected</li>
+<li>-1 if the nodes are connected</li>
+</ul></li>
+<li>Second smallest eigenvalue and eigenvector of L gives the best cut for graph partition
+<ul>
+<li>The smallest value will be zero</li>
+<li>Group the nodes using second smallest eigenvector</li>
+</ul></li>
+<li>Applicable to pairwise similarity matrix
+<ul>
+<li>Graph Representation
+<ul>
+<li>Node is the object</li>
+<li>Distance denotes the edge</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="dbscan" class="section level3" number="5.0.4">
+<h3><span class="header-section-number">5.0.4</span> DBSCAN</h3>
+<ul>
+<li>Density based spatial clustering</li>
+<li>Clusters are dense regions in space separated by regions with low density</li>
+<li>Recusrvely expand the cluster based on dense connectivity</li>
+<li>Can find clusters of arbitrary shape</li>
+<li>Two parameters:
+<ul>
+<li><span class="math inline">\(\epsilon\)</span> radius</li>
+<li>mininum # points to be contained in the neighbourhood</li>
+</ul></li>
+<li>Core Point
+<ul>
+<li>Point that has mininum # points in <span class="math inline">\(\epsilon\)</span> radius</li>
+</ul></li>
+<li>Direct Density Reachble
+<ul>
+<li>Points in <span class="math inline">\(\epsilon\)</span> radius of core point</li>
+</ul></li>
+<li>Density Reachable
+<ul>
+<li>Chain connects the two points</li>
+<li>Chain is formed by considering many different core points</li>
+</ul></li>
+<li>Border Point
+<ul>
+<li>Point is DDR but not core</li>
+</ul></li>
+<li>Expand the clusters recursively by collapsing DR and DDR points</li>
 </ul>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="decision-trees-random-forests.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="xgboost.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="support-vector-machines.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

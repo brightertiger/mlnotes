@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Notes on ML</title>
-  <meta name="description" content="Notes on ML" />
+  <title>6 Support Vector Machines | Notes on ML</title>
+  <meta name="description" content="6 Support Vector Machines | Notes on ML" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Notes on ML" />
+  <meta property="og:title" content="6 Support Vector Machines | Notes on ML" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Notes on ML" />
+  <meta name="twitter:title" content="6 Support Vector Machines | Notes on ML" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="decision-trees-random-forests.html"/>
+<link rel="prev" href="clustering.html"/>
+<link rel="next" href="dimensionality-reduction.html"/>
 <script src="libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -137,26 +137,177 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Notes on ML</h1>
-<p class="author"><em>brightertiger</em></p>
-<p class="date"><em>2022-03-28</em></p>
-</div>
-<div id="about" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> About</h1>
+<div id="support-vector-machines" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Support Vector Machines</h1>
+<div id="linear-svm" class="section level3" number="6.0.1">
+<h3><span class="header-section-number">6.0.1</span> Linear SVM</h3>
 <ul>
-<li><p>Hi I am brightertiger! I am a data scientist looking to expand my knowledge about ML.</p></li>
-<li><p>This is a collection of <em>notes</em> on machine learning concepts based mostly on Statquest along with a few other resources.</p></li>
+<li>Classification setting</li>
+<li>Find the maximum-margin hyperplane that can separate the data</li>
+<li>Best hyperplane is the one that maximizes the margin
+<ul>
+<li>Margin the distance of the hyperplane to closest data points from both classes</li>
+<li>Hyperplane: <span class="math inline">\(H : wx +b = 0\)</span></li>
+</ul></li>
+<li>Distance of a point (x) to a hyperplane (h):
+<ul>
+<li><span class="math inline">\(d = \frac{|Wx + b|}{||W||^2}\)</span></li>
+</ul></li>
+<li>Margin is defined by the point closest to the hyperplane
+<ul>
+<li><span class="math inline">\(\gamma(W,b) = \min_{x \in D} \frac{|Wx + b|}{||W||^2}\)</span></li>
+<li>Margin is scale invariant</li>
+</ul></li>
+<li>SVM wants to maximize this margin
+<ul>
+<li>For margin to be maximized, hyperplane must lie right in the middle of the two classes</li>
+<li>Otherwise it can be moved towards data points of the class that is further away and be further increased</li>
+</ul></li>
+<li>Mathematics
+<ul>
+<li>Binary Classification
+<ul>
+<li><span class="math inline">\(y_i \in \{+1,-1\}\)</span></li>
+</ul></li>
+<li>Need to find a separating hyperplane such that
+<ul>
+<li><span class="math inline">\((Wx_i + b) &gt; 0 \; \forall \; y_i = +1\)</span></li>
+<li><span class="math inline">\((Wx_i + b) &lt; 0 \; \forall \; y_i = -1\)</span></li>
+<li><span class="math inline">\(y_i(Wx_i + b) \ge 0\)</span></li>
+</ul></li>
+<li>SVM posits that the best hyperplane is the one that maximizes the margin
+<ul>
+<li>Margin acts as buffer which can lead to better generalization</li>
+</ul></li>
+<li>Objective
+<ul>
+<li><span class="math inline">\(\max_{W,b} \gamma(W,b) \; \text{subject to} \; y_i(Wx_i + b) &gt; 0\)</span></li>
+<li><span class="math inline">\(\max_{W,b} \min_{x \in D} \frac{|Wx + b|}{||W||^2} \; \text{subject to} \; y_i(Wx_i + b) &gt; 0\)</span></li>
+<li>A max-min optimization problem</li>
+</ul></li>
+<li>Simplification
+<ul>
+<li>The best possible hyperplace is scale invariant</li>
+<li>Add a constraint such that <span class="math inline">\(|Wx +b| = 1\)</span></li>
+</ul></li>
+<li>Updated objective
+<ul>
+<li><span class="math inline">\(\max \frac{1}{||W||^2} \; \text{subject to} \; y_i(Wx_i + b) \ge 0 \; ; |Wx +b| = 1\)</span></li>
+<li><span class="math inline">\(\min ||W||^2 \; \text{subject to} \; y_i(Wx_i + b) \ge 0 \; ; |Wx +b| = 1\)</span></li>
+</ul></li>
+<li>Combining the contraints
+<ul>
+<li><span class="math inline">\(y_i(Wx_i + b) \ge 0\; ; |Wx +b| = 1 \implies y_i(Wx_i + b) \ge 1\)</span></li>
+<li>Holds true because the objective is trying to minimize W</li>
+</ul></li>
+<li>Final objective
+<ul>
+<li><span class="math inline">\(\min ||W||^2 \; \text{subject to} \; y_i(Wx_i + b) \ge 1\)</span><br />
+</li>
+</ul></li>
+<li>Quadratic optimization problem
+<ul>
+<li>Can be solved quickly unlike regression which involves inverting a large matrix</li>
+<li>Gives a unique solution unlike perceptron</li>
+</ul></li>
+<li>At the optimal solution, some training points will lie of the margin
+<ul>
+<li><span class="math inline">\(y_i(Wx_i + b) = 1\)</span></li>
+<li>These points are called support vectors</li>
+</ul></li>
+</ul></li>
+<li>Soft Constraints
+<ul>
+<li>What if the optimization problem is infeasible?
+<ul>
+<li>No solution exists</li>
+</ul></li>
+<li>Add relaxations i.e. allow for some misclassification
+<ul>
+<li>Original: <span class="math inline">\(y_i(Wx_i + b) \ge 1\)</span></li>
+<li>Relaxed: <span class="math inline">\(y_i(Wx_i + b) \ge 1 - \xi_i \; ; \xi_i &gt; 0\)</span></li>
+<li><span class="math inline">\(\xi_i = \begin{cases} 1 - y_i(Wx_i + b), &amp; \text{if } y_i(Wx_i + b) &lt; 1\\0, &amp; \text{otherwise} \end{cases}\)</span></li>
+<li>Hinge Loss <span class="math inline">\(\xi_i = \max (1 - y_i(Wx_i + b), 0)\)</span></li>
+</ul></li>
+<li>Objective: <span class="math inline">\(\min ||W||^2 + C \sum_i \max (1 - y_i(Wx_i + b), 0)\)</span>
+<ul>
+<li>C is the regularization parameter that calculates trade-off</li>
+<li>High value of C allows for less torelance on errors</li>
+</ul></li>
+</ul></li>
+<li>Duality
+<ul>
+<li>Primal problem is hard to solve</li>
+<li>Convert the problem to a Dual, which is easier to solve and also provides near-optimal solution to primal</li>
+<li>The gap is the optimality that arises in this process is the duality gap</li>
+<li>Lagrangian multipliers determine if strong suality exists</li>
+<li>Convert the above soft-margin SVM to dual via Lagrangian multipliers</li>
+<li><span class="math inline">\(\sum \alpha_i + \sum\sum \alpha_i \alpha_j y_i y_j x_i^T x_j\)</span></li>
+<li><span class="math inline">\(\alpha\)</span> is the Lagrangian multiplier</li>
+</ul></li>
+<li>Kernelization
+<ul>
+<li>Say the points are not separable in lower dimension
+<ul>
+<li>Transform them via kernels to project them to a higher dimension</li>
+<li>The points may be separable the higher dimension</li>
+<li>Non-linear feature transformation</li>
+<li>Solve non-linear problems via Linear SVM</li>
+</ul></li>
+<li>Polynomial Kernel
+<ul>
+<li><span class="math inline">\(K(x_i, x_j) = (x_i^T x_j + c)^d\)</span></li>
+<li>The d regers to the degree of the polynomial</li>
+<li>Example: 2 points in 1-D (a and b) transformerd via second order polynomial kernel
+<ul>
+<li><span class="math inline">\(K(a,b) = (ab + 1)^2 = 2ab+ a^2b^2 + 1 = (\sqrt{2a}, a, 1)(\sqrt{2b}, b, 1)\)</span></li>
+</ul></li>
+<li>Calculates similarity between points in higher dimension</li>
+</ul></li>
+<li>RBF Kernel
+<ul>
+<li><span class="math inline">\(K(x_i, x_j) = \exp \{\gamma |x_i - x_j|^2\}\)</span></li>
+<li>The larger the distance between two observations, the less is the similarity</li>
+<li>Radial Kernel determines how much influence each observation has on classifying new data points<br />
+</li>
+<li>Transforms points to an infinite dimension space
+<ul>
+<li>Tayloy Expansion of exponential term shows how RBF is a polynomial function with inifnite dimensions</li>
+</ul></li>
+<li>2 points in 1-D (a and b) transformerd via RBF
+<ul>
+<li><span class="math inline">\(K(a,b) = (1, \sqrt{\frac{1}{1!}}a, \sqrt{\frac{1}{2!}}a^2...)(1, \sqrt{\frac{1}{1!}}b, \sqrt{\frac{1}{2!}}b^2...)\)</span></li>
+</ul></li>
+</ul></li>
+<li>Kernel Trick
+<ul>
+<li>Transforming the original dataset via Kernels and training SVM is expensive</li>
+<li>Convert Dot-products of support vectors to dot-products of mapping functions</li>
+<li><span class="math inline">\(x_i^T x_j \implies \phi(x_i)^T \phi(x_j)\)</span></li>
+<li>Kernels are chosen in a way that this is feasible</li>
+</ul></li>
+</ul></li>
+<li>SVM For Regression
+<ul>
+<li>Margins should cover all data points (Hard) or most data points (Soft)</li>
+<li>The boundary now lies in the middle of the margins
+<ul>
+<li>The regression model to estimate the target values</li>
+</ul></li>
+<li>The objective is to minimize the the distance of the points to the boundary</li>
+<li>Hard SVM is sensitive to outliers</li>
+</ul></li>
 </ul>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="decision-trees-random-forests.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="clustering.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="dimensionality-reduction.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
