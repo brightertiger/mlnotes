@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Basic Statistics | Notes on ML</title>
+  <meta name="description" content="2 Basic Statistics | Notes on ML" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Basic Statistics | Notes on ML" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Basic Statistics | Notes on ML" />
+  
+  
+  
+
+<meta name="author" content="brightertiger" />
+
+
+<meta name="date" content="2022-04-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="decision-trees-random-forests.html"/>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ML Notes</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="basic-statistics.html"><a href="basic-statistics.html"><i class="fa fa-check"></i><b>2</b> Basic Statistics</a>
+<ul>
+<li class="chapter" data-level="2.0.1" data-path="basic-statistics.html"><a href="basic-statistics.html#sampling-and-measurement"><i class="fa fa-check"></i><b>2.0.1</b> Sampling and Measurement</a></li>
+<li class="chapter" data-level="2.0.2" data-path="basic-statistics.html"><a href="basic-statistics.html#descriptive-statistics"><i class="fa fa-check"></i><b>2.0.2</b> Descriptive Statistics</a></li>
+<li class="chapter" data-level="2.0.3" data-path="basic-statistics.html"><a href="basic-statistics.html#probability"><i class="fa fa-check"></i><b>2.0.3</b> Probability</a></li>
+<li class="chapter" data-level="2.0.4" data-path="basic-statistics.html"><a href="basic-statistics.html#confidence-interval"><i class="fa fa-check"></i><b>2.0.4</b> Confidence Interval</a></li>
+<li class="chapter" data-level="2.0.5" data-path="basic-statistics.html"><a href="basic-statistics.html#significance-test"><i class="fa fa-check"></i><b>2.0.5</b> Significance Test</a></li>
+<li class="chapter" data-level="2.0.6" data-path="basic-statistics.html"><a href="basic-statistics.html#comparison-of-groups"><i class="fa fa-check"></i><b>2.0.6</b> Comparison of Groups</a></li>
+<li class="chapter" data-level="2.0.7" data-path="basic-statistics.html"><a href="basic-statistics.html#association-between-categorical-variables"><i class="fa fa-check"></i><b>2.0.7</b> Association between Categorical Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html"><i class="fa fa-check"></i><b>3</b> Decision Trees &amp; Random Forests</a>
+<ul>
+<li class="chapter" data-level="3.0.1" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#decision-trees"><i class="fa fa-check"></i><b>3.0.1</b> Decision Trees</a></li>
+<li class="chapter" data-level="3.0.2" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#splitting"><i class="fa fa-check"></i><b>3.0.2</b> Splitting</a></li>
+<li class="chapter" data-level="3.0.3" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#bias-variance-trade-off"><i class="fa fa-check"></i><b>3.0.3</b> Bias-Variance Trade-off</a></li>
+<li class="chapter" data-level="3.0.4" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#nature-of-decision-trees"><i class="fa fa-check"></i><b>3.0.4</b> Nature of Decision Trees</a></li>
+<li class="chapter" data-level="3.0.5" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#bagging"><i class="fa fa-check"></i><b>3.0.5</b> Bagging</a></li>
+<li class="chapter" data-level="3.0.6" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#random-forest"><i class="fa fa-check"></i><b>3.0.6</b> Random Forest</a></li>
+<li class="chapter" data-level="3.0.7" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#extratrees"><i class="fa fa-check"></i><b>3.0.7</b> ExtraTrees</a></li>
+<li class="chapter" data-level="3.0.8" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#variable-importance"><i class="fa fa-check"></i><b>3.0.8</b> Variable Importance</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>4</b> Boosting</a>
+<ul>
+<li class="chapter" data-level="4.0.1" data-path="boosting.html"><a href="boosting.html#overview"><i class="fa fa-check"></i><b>4.0.1</b> Overview</a></li>
+<li class="chapter" data-level="4.0.2" data-path="boosting.html"><a href="boosting.html#gradient-boosting"><i class="fa fa-check"></i><b>4.0.2</b> Gradient Boosting</a></li>
+<li class="chapter" data-level="4.0.3" data-path="boosting.html"><a href="boosting.html#adaboost-for-classification"><i class="fa fa-check"></i><b>4.0.3</b> Adaboost for Classification</a></li>
+<li class="chapter" data-level="4.0.4" data-path="boosting.html"><a href="boosting.html#notes"><i class="fa fa-check"></i><b>4.0.4</b> Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="xgboost.html"><a href="xgboost.html"><i class="fa fa-check"></i><b>5</b> XGBoost</a>
+<ul>
+<li class="chapter" data-level="5.0.1" data-path="xgboost.html"><a href="xgboost.html#mathematical-details"><i class="fa fa-check"></i><b>5.0.1</b> Mathematical Details</a></li>
+<li class="chapter" data-level="5.0.2" data-path="xgboost.html"><a href="xgboost.html#regression"><i class="fa fa-check"></i><b>5.0.2</b> Regression</a></li>
+<li class="chapter" data-level="5.0.3" data-path="xgboost.html"><a href="xgboost.html#classification"><i class="fa fa-check"></i><b>5.0.3</b> Classification</a></li>
+<li class="chapter" data-level="5.0.4" data-path="xgboost.html"><a href="xgboost.html#optimizations"><i class="fa fa-check"></i><b>5.0.4</b> Optimizations</a></li>
+<li class="chapter" data-level="5.0.5" data-path="xgboost.html"><a href="xgboost.html#comparisons"><i class="fa fa-check"></i><b>5.0.5</b> Comparisons</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>6</b> Clustering</a>
+<ul>
+<li class="chapter" data-level="6.0.1" data-path="clustering.html"><a href="clustering.html#hierarchical-agglomerative-clustering"><i class="fa fa-check"></i><b>6.0.1</b> Hierarchical Agglomerative Clustering</a></li>
+<li class="chapter" data-level="6.0.2" data-path="clustering.html"><a href="clustering.html#k-means-clustering"><i class="fa fa-check"></i><b>6.0.2</b> K-Means Clustering</a></li>
+<li class="chapter" data-level="6.0.3" data-path="clustering.html"><a href="clustering.html#spectral-clustering"><i class="fa fa-check"></i><b>6.0.3</b> Spectral Clustering</a></li>
+<li class="chapter" data-level="6.0.4" data-path="clustering.html"><a href="clustering.html#dbscan"><i class="fa fa-check"></i><b>6.0.4</b> DBSCAN</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="support-vector-machines.html"><a href="support-vector-machines.html"><i class="fa fa-check"></i><b>7</b> Support Vector Machines</a>
+<ul>
+<li class="chapter" data-level="7.0.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linear-svm"><i class="fa fa-check"></i><b>7.0.1</b> Linear SVM</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html"><i class="fa fa-check"></i><b>8</b> Dimensionality Reduction</a>
+<ul>
+<li class="chapter" data-level="8.0.1" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#background"><i class="fa fa-check"></i><b>8.0.1</b> Background</a></li>
+<li class="chapter" data-level="8.0.2" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#principal-component-analysis"><i class="fa fa-check"></i><b>8.0.2</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="8.0.3" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#stochastic-neighbour-embedding-sne"><i class="fa fa-check"></i><b>8.0.3</b> Stochastic Neighbour Embedding (SNE)</a></li>
+</ul></li>
+<li class="divider"></li>
+<li>Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notes on ML</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="basic-statistics" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Basic Statistics</h1>
+<div id="sampling-and-measurement" class="section level3" number="2.0.1">
+<h3><span class="header-section-number">2.0.1</span> Sampling and Measurement</h3>
+<ul>
+<li>A characteristic that can be measured for each data point
+<ul>
+<li>Quantitative: Numerical</li>
+<li>Categorical: Categories</li>
+</ul></li>
+<li>Measurement Scales:
+<ul>
+<li>Quantitative: Interval Scale</li>
+<li>Qualitative:
+<ul>
+<li>Nominal Scale (Unordered)</li>
+<li>Ordinal Scale (Ordered)</li>
+</ul></li>
+</ul></li>
+<li>Statistic varies from sample to sample drawn from the same distribution
+<ul>
+<li>Sampling Bias + Sampling Error</li>
+</ul></li>
+<li>Sampling Error
+<ul>
+<li>Error that occurs on account of using a sample to calculate the population statistic</li>
+</ul></li>
+<li>Sampling Bias
+<ul>
+<li>Selection Bias</li>
+<li>Response Bias</li>
+<li>Non-Response Bias</li>
+</ul></li>
+<li>Simple Random Sampling
+<ul>
+<li>Each data point has equal probability of being selected</li>
+</ul></li>
+<li>Stratified Random Sampling
+<ul>
+<li>Divide population into strata and select select random samples from each</li>
+</ul></li>
+<li>Cluster Sampling
+<ul>
+<li>Divide population into clusters and select select random samples from each</li>
+</ul></li>
+<li>Multi-Stage Sampling
+<ul>
+<li>Combination of sampling methods</li>
+</ul></li>
+</ul>
+</div>
+<div id="descriptive-statistics" class="section level3" number="2.0.2">
+<h3><span class="header-section-number">2.0.2</span> Descriptive Statistics</h3>
+<ul>
+<li>Mean, Median, Mode</li>
+<li>Shape of Distribution
+<ul>
+<li>Symmetric around the cetral value
+<ul>
+<li>Mean coincides with median<br />
+</li>
+</ul></li>
+<li>Left Skewed: Left tail is longer
+<ul>
+<li>Mean &gt; Median</li>
+</ul></li>
+<li>Right Skewed: Right tail is longer
+<ul>
+<li>Mean &lt; Median</li>
+</ul></li>
+<li>For skewed distributions, mean lies closer to the long tail</li>
+</ul></li>
+<li>Standard Deviation:
+<ul>
+<li>Deviaiton is difference of observation from mean</li>
+<li><span class="math inline">\(s = \sqrt{\frac{\sum deviations ^ 2}{N-1}}\)</span></li>
+<li>Measures variability around mean</li>
+</ul></li>
+<li>IQR: Inter Quartile Range
+<ul>
+<li>Difference between 75th and 25th percentile</li>
+<li>Outlier falls beyond 1.5 x IQR</li>
+</ul></li>
+<li>Empirical Rule:
+<ul>
+<li>For bell-shaped distributions - 68% volume is within 1 sdev and 95% volume within 2 sdev</li>
+</ul></li>
+</ul>
+</div>
+<div id="probability" class="section level3" number="2.0.3">
+<h3><span class="header-section-number">2.0.3</span> Probability</h3>
+<ul>
+<li><span class="math inline">\(E(X) = \sum_i x_i \times p(X=x_i)\)</span>
+<ul>
+<li>First moment about origin</li>
+</ul></li>
+<li><span class="math inline">\(V(X) = E(X^2) - (E(X))^2\)</span>
+<ul>
+<li>Second moment about mean</li>
+</ul></li>
+<li><span class="math inline">\(z = (y - \mu) / \sigma\)</span></li>
+<li>Standard Normal Distribution <span class="math inline">\(\sim N(0,1)\)</span></li>
+<li><span class="math inline">\(Cov(X,Y) = E[(X - \mu_x)(Y - \mu_y)]\)</span></li>
+<li>Correlation <span class="math inline">\(\rho = Cov(X,y) / \sigma_x \sigma_y = E(z_x z_y)\)</span></li>
+<li>Sampling Distribution: Probability distribution of the test statistic</li>
+<li>Sample Mean
+<ul>
+<li>Central Limit Theorem</li>
+<li><span class="math inline">\(\sim N(\mu, \sigma / \sqrt N)\)</span></li>
+<li>Standard Error <span class="math inline">\(\sigma / \sqrt N\)</span></li>
+<li>Standard Deviation of Sampling Distriution</li>
+</ul></li>
+<li>Case: Exit poll survey
+<ul>
+<li><span class="math inline">\(\sim B(0.5)\)</span> with sample size 1800</li>
+<li>Variance <span class="math inline">\(\sqrt{p (1-p)}\)</span> = 0.25</li>
+<li>Standard Error <span class="math inline">\(\sigma / \sqrt N\)</span> = 0.01</li>
+<li>99% CI: <span class="math inline">\(0.5 \pm 3 * 0.01 \approx (0.47, 0.53)\)</span></li>
+</ul></li>
+<li>Case: Income Survey
+<ul>
+<li><span class="math inline">\(\sim N(380, 80^2)\)</span> with sample size 100</li>
+<li><span class="math inline">\(P(\bar y &gt;= 400)\)</span></li>
+<li>Standard Error <span class="math inline">\(\sigma / \sqrt N\)</span> = 8</li>
+<li><span class="math inline">\(z = (400 - 380) / 8 = 2.5\)</span></li>
+<li><span class="math inline">\(P(Z &gt;= z) &lt; 0.006\)</span></li>
+</ul></li>
+</ul>
+</div>
+<div id="confidence-interval" class="section level3" number="2.0.4">
+<h3><span class="header-section-number">2.0.4</span> Confidence Interval</h3>
+<ul>
+<li>Point Estimate: Single number representing the best guess for the parameter</li>
+<li>Unbiased Estimator:
+<ul>
+<li><span class="math inline">\(E(\bar X) = \mu\)</span></li>
+<li>In expectation the estimator converges to the true population value</li>
+</ul></li>
+<li>Efficient Estimator:
+<ul>
+<li><span class="math inline">\(N \to \inf \implies V(\bar X) \to 0\)</span></li>
+<li>The standard error approaches to zero as the sample size increases</li>
+</ul></li>
+<li>Interval Estimate:
+<ul>
+<li>Confidence Interval: Range of values that can hold the true parameter value</li>
+<li>Confidence Value: Probability with which true parameter value lies in CI</li>
+<li>Point Estimate <span class="math inline">\(\pm\)</span> Margin of Error</li>
+</ul></li>
+<li>CI for Proportion
+<ul>
+<li>Point Estimate <span class="math inline">\(\hat \pi\)</span></li>
+<li>Variance <span class="math inline">\(\hat \sigma^2 = \hat \pi (1 - \hat \pi)\)</span></li>
+<li>Standard Error: <span class="math inline">\(\hat \sigma / \sqrt N = \sqrt{ \hat \pi (1 - \hat \pi) / N}\)</span></li>
+<li>99% CI = <span class="math inline">\(\hat \pi \pm (z_{0.01} \times se)\)</span></li>
+<li><span class="math inline">\((z_{0.01} \times se)\)</span> is the margin of error</li>
+<li>Confidence Level increases the CI</li>
+<li>Sample Size decreases the CI</li>
+<li>Type 1 Error Propability: 1 - confidence level</li>
+</ul></li>
+<li>CI for Mean
+<ul>
+<li>Point Estimate <span class="math inline">\(\hat \mu = \bar X\)</span></li>
+<li>Variance <span class="math inline">\(\hat \sigma^2 = \sum (X_i - \bar X)^2 / (N-1)\)</span><br />
+</li>
+<li>Standard Error: <span class="math inline">\(\hat \sigma / \sqrt N\)</span></li>
+<li>True population variance is unknown</li>
+<li>Using sample variance as proxy introduces additional error</li>
+<li>Conservative: replace z-distribution with t-distribution<br />
+</li>
+<li><span class="math inline">\((t_{n-1,0.01} \times se)\)</span> is the margin of error</li>
+<li>Assumptions:
+<ul>
+<li>Underlying distribution is Normal</li>
+<li>Random Sampling</li>
+</ul></li>
+<li>CI generated from t-distribution are robust wrt normality assumptions violations</li>
+</ul></li>
+<li>Sample Size Calculator for Proportions
+<ul>
+<li>Margin of error depends on standard error which in turn depends on sample size</li>
+<li>Reformulate the CI equation from above</li>
+<li>Sample Size : <span class="math inline">\(N = \pi(1-\pi) \times (z^2 / M)\)</span></li>
+<li><span class="math inline">\(\pi\)</span> is the base conversation rate</li>
+<li>Z is the Confidence Level</li>
+<li>M is the margin of error</li>
+</ul></li>
+<li>Sample Size Calculator for Mean
+<ul>
+<li><span class="math inline">\(N = \sigma^2 \times (z^2 / M)\)</span></li>
+</ul></li>
+<li>Maximum Likelihood Estimation
+<ul>
+<li>Point estimate the maximizes the probability of observed data</li>
+<li>Sampling distributions are approximately normal</li>
+<li>Use them to estimate variance</li>
+</ul></li>
+<li>Bootstrap
+<ul>
+<li>Resampling method</li>
+<li>Yield standard errors and confidence intervals for measures</li>
+<li>No Assumption on underlying distribution</li>
+</ul></li>
+</ul>
+</div>
+<div id="significance-test" class="section level3" number="2.0.5">
+<h3><span class="header-section-number">2.0.5</span> Significance Test</h3>
+<ul>
+<li>Hypothesis is a statement about the population</li>
+<li>Significance test uses data to summerize evidence about the hypothesis</li>
+<li>Five Parts:
+<ol style="list-style-type: decimal">
+<li>Assumptions
+<ul>
+<li>Type of data</li>
+<li>Randomization</li>
+<li>Population Distribution</li>
+<li>Sample Size</li>
+</ul></li>
+<li>Hypothesis
+<ul>
+<li>Null</li>
+<li>Alternate</li>
+</ul></li>
+<li>Test Statistic: How far does the parameter value fall from the hypothesis</li>
+<li>P Value: The probability of observing the given (or more extreme value) of the test statistic, assuming the null hypothesis is true
+<ul>
+<li>Smaller the p-value, stronger is the evidence for rejecting null hypothesis</li>
+</ul></li>
+<li>Conclusion
+<ul>
+<li>If P-value is less than 5%, 95% CI doesn’t contain the hypothesized value of the parameter</li>
+<li>“Reject” or “Fail to Reject” null hypothesis</li>
+</ul></li>
+</ol></li>
+<li>Hypothesis testing for Proportions
+<ul>
+<li><span class="math inline">\(H_0: \pi = \pi_0\)</span></li>
+<li><span class="math inline">\(H_1: \pi \ne \pi_0\)</span></li>
+<li><span class="math inline">\(z = (\hat \pi - \pi_0) / se\)</span></li>
+<li><span class="math inline">\(se = \sqrt{\pi (1-\pi) / N}\)</span></li>
+</ul></li>
+<li>Hypothesis testing for Mean
+<ul>
+<li><span class="math inline">\(H_0: \mu = \mu_0\)</span></li>
+<li><span class="math inline">\(H_1: \mu \ne \mu_0\)</span></li>
+<li><span class="math inline">\(t = (\bar X - \mu_0) / se\)</span></li>
+<li><span class="math inline">\(se = \sigma / \sqrt N\)</span></li>
+<li>In case of small sample sizes, replace the z-test with binomial distribution
+<ul>
+<li><span class="math inline">\(P(X=x) = {N\choose x} p^x (1-p)^{N-x}\)</span></li>
+<li><span class="math inline">\(\mu = np, \, \sigma=\sqrt{np(1-p)}\)</span></li>
+</ul></li>
+</ul></li>
+<li>One-tail Test measure deviation in a particular direction
+<ul>
+<li>Risky in case of skewed distributions</li>
+<li>t-test is robust to skewed distributions but one-tailed tests can compound error</li>
+</ul></li>
+<li>Errors
+<ul>
+<li>Type 1: Reject H0, given H0 is true: (1 - Confidence Level)</li>
+<li>Type 2: Fail to reject H0, given H0 is false</li>
+<li>The smaller P(Type 1 error) is, the larger P(Type 2 error) is.</li>
+<li>Probability of Type 2 error increases as statistic moves closer to H0</li>
+<li>Power of the test = 1 - P(Type 2 error)</li>
+</ul></li>
+<li>Significance testing doesn’t rely solely on effect size. Small and impractical differences can be statistically significant with large enough sample sizes</li>
+</ul>
+</div>
+<div id="comparison-of-groups" class="section level3" number="2.0.6">
+<h3><span class="header-section-number">2.0.6</span> Comparison of Groups</h3>
+<ul>
+<li>Difference in means between two groups
+<ul>
+<li><span class="math inline">\(\mu_1, \mu_2\)</span> are the average parameter values for the two groups</li>
+<li>Test for the difference in <span class="math inline">\(\mu_1 - \mu_2\)</span></li>
+<li>Estimate the difference in sample means: <span class="math inline">\(\bar y_1 - \bar y_2\)</span></li>
+<li>Assume <span class="math inline">\(\bar y_1 - \bar y_2 \sim N(\mu_1 - \mu_2, se)\)</span></li>
+<li><span class="math inline">\(E(\bar y_1 - \bar y_2) = \mu_1 - \mu_2\)</span></li>
+<li><span class="math inline">\(se = \sqrt{se_1^2 + se_2^2} = \sqrt{s_1^2 / n_1 + s_2^2 / n_2}\)</span></li>
+<li>s1 and s2 are standard errors for y1 and y2 respectively</li>
+<li>Confidence Intervals
+<ul>
+<li><span class="math inline">\(\bar y_1 - \bar y_2 \pm t (se)\)</span></li>
+<li>Check if the confidence interval contains 0 or not</li>
+</ul></li>
+<li>Significance Test
+<ul>
+<li><span class="math inline">\(t= \frac{(\bar y_1 - \bar y_2) - 0}{se}\)</span></li>
+<li>degrees of freedom for t is (n1 + n2 -2)</li>
+</ul></li>
+</ul></li>
+<li>Differences in means between two groups (assuming equal variance)
+<ul>
+<li><span class="math inline">\(s = \sqrt{\frac{(n_1 - 1)se_1^2 + (n_2 - 1)se_2^2}{n_1 + n_2 - 2}}\)</span></li>
+<li><span class="math inline">\(se = s \sqrt{{1 \over n_1} + {1 \over n_2}}\)</span></li>
+<li>Confidence Interval
+<ul>
+<li><span class="math inline">\((\bar y_1 - \bar y_2) \pm t (se)\)</span></li>
+</ul></li>
+<li>Significance Test
+<ul>
+<li><span class="math inline">\(t = \frac{(\bar y_1 - \bar y_2)}{se}\)</span><br />
+</li>
+<li>degrees of freedom for t is (n1 + n2 -2)</li>
+</ul></li>
+</ul></li>
+<li>Difference in proportions between two groups
+<ul>
+<li><span class="math inline">\(\pi_1, \pi_2\)</span> are the average proportion values for the two groups</li>
+<li>Test for the difference in <span class="math inline">\(\pi_1 - \pi_2\)</span></li>
+<li><span class="math inline">\(se = \sqrt{se_1^2 + se_2^2} = \sqrt{(\hat\pi_1(1-\hat\pi_1)) / n_1 + (\hat\pi_2(1-\hat\pi_2)) / n_2}\)</span></li>
+<li>Confidence Intervals
+<ul>
+<li><span class="math inline">\(\hat \pi_1 - \hat \pi_2 \pm z (se)\)</span></li>
+</ul></li>
+<li>Significance Test
+<ul>
+<li>Calculate population average <span class="math inline">\(\hat \pi_1 = \hat \pi_2 = \hat \pi\)</span></li>
+<li><span class="math inline">\(se = \sqrt{\hat\pi(1-\hat\pi)({1 \over n_1} + {1 \over n_2})}\)</span></li>
+<li><span class="math inline">\(z=(\hat \pi_1 - \hat \pi_2) / se\)</span></li>
+</ul></li>
+<li>Fisher’s Exact test for smaller samples</li>
+</ul></li>
+<li>Differneces in matched pairs
+<ul>
+<li>Same subject’s response across different times</li>
+<li>Controls for other sources of variations</li>
+<li>Longitudnal and Crossover studies</li>
+<li>Difference of Means == Mean of Differences</li>
+<li>Confidence Interval
+<ul>
+<li><span class="math inline">\(\bar y_d \pm t {s_d \over \sqrt n}\)</span></li>
+</ul></li>
+<li>Significance Test
+<ul>
+<li>Paired-difference t-test<br />
+</li>
+<li><span class="math inline">\(t = {(y_d - 0) \over se}; \; se = s_d / \sqrt n\)</span></li>
+</ul></li>
+<li>Effect Size
+<ul>
+<li><span class="math inline">\((\bar y_1 - \bar y_2) / s\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>Option</th>
+<th>Yes</th>
+<th>No</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Yes</td>
+<td>N11</td>
+<td>N12</td>
+</tr>
+<tr class="even">
+<td>No</td>
+<td>N21</td>
+<td>N22</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Comparing Dependent Proportions (McNemar Test)
+<ul>
+<li>A 4x4 contingency table (above)</li>
+<li>One subject gets multiple treatments
+<ul>
+<li>Say disease and side effect (Cancer and Smoking)</li>
+</ul></li>
+<li><span class="math inline">\(z = \frac{n_{12} - n_{21}}{\sqrt{n_{12} + n_{21}}}\)</span></li>
+<li>Confidence Interval
+<ul>
+<li><span class="math inline">\(\hat \pi_1 = (n_{11} + n_{12})/ n\)</span></li>
+<li><span class="math inline">\(\hat \pi_2 = (n_{11} + n_{21}) / n\)</span></li>
+<li><span class="math inline">\(se = {1 \over n}\sqrt{(n_{21} + n_{12}) - (n_{21} + n_{12})^2 / n}\)</span></li>
+</ul></li>
+</ul></li>
+<li>Non-parametric Tests
+<ul>
+<li>Wilcoxin Test
+<ul>
+<li>Combine Samples n1 + n2</li>
+<li>Rank each observation</li>
+<li>Compare the mean of the ranks for each group</li>
+</ul></li>
+<li>Mann-Whitney Test
+<ul>
+<li>Form pairs of observations from two samples</li>
+<li>Count the number of samples in which sample 1 is higher than sample 2</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="association-between-categorical-variables" class="section level3" number="2.0.7">
+<h3><span class="header-section-number">2.0.7</span> Association between Categorical Variables</h3>
+<ul>
+<li>Variables are statisitcally independent if population conditional distributions match the category conditional distribution</li>
+<li>Chi-Square Test
+<ul>
+<li>Calculate Expected Frequencies</li>
+<li>(row total * column total) / total observations</li>
+<li><span class="math inline">\(f_e (xy) = (n_{.y} * n_{x.}) / N\)</span></li>
+<li>Compare to observed frequency <span class="math inline">\(f_o\)</span></li>
+<li><span class="math inline">\(\chi^2 = \sum\frac{(f_e - f_o)^2}{f_e}\)</span></li>
+<li>degrees of freedom: (r-1)x(c-1)</li>
+<li>Value of chi-sq doesn’t tell the strength of association</li>
+</ul></li>
+<li>Residual Analysis
+<ul>
+<li>The difference of a given cell significant or not</li>
+<li><span class="math inline">\(z = (f_e - f_o) / \sqrt{f_e (1 - row\%)(1 - col\%)}\)</span></li>
+</ul></li>
+<li>Odds Ratio
+<ul>
+<li>Probability of success / Probability of failure</li>
+<li>Cross product ratio</li>
+<li>From 2x2 Contingecy Tables:
+<ul>
+<li><span class="math inline">\(\theta = (n_{11} \times n_{22}) / (n_{12} \times n_{21})\)</span></li>
+</ul></li>
+<li><span class="math inline">\(\theta = 1 \implies\)</span> equal probability</li>
+<li><span class="math inline">\(\theta &gt; 1 \implies\)</span> row 1 has higher chance</li>
+<li><span class="math inline">\(\theta &lt; 1 \implies\)</span> row 2 has higher chance</li>
+</ul></li>
+<li>Ordinal Variables
+<ul>
+<li>Concordance ( C )
+<ul>
+<li>Observation higher on one variable is higher on another as well</li>
+</ul></li>
+<li>Discordant ( D )
+<ul>
+<li>Otherwise</li>
+</ul></li>
+<li>Calculate Gamma
+<ul>
+<li><span class="math inline">\(\gamma = (C-D) / (C+D)\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="decision-trees-random-forests.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

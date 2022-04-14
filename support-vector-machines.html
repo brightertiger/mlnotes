@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6 Support Vector Machines | Notes on ML</title>
-  <meta name="description" content="6 Support Vector Machines | Notes on ML" />
+  <title>7 Support Vector Machines | Notes on ML</title>
+  <meta name="description" content="7 Support Vector Machines | Notes on ML" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6 Support Vector Machines | Notes on ML" />
+  <meta property="og:title" content="7 Support Vector Machines | Notes on ML" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6 Support Vector Machines | Notes on ML" />
+  <meta name="twitter:title" content="7 Support Vector Machines | Notes on ML" />
   
   
   
@@ -24,7 +24,7 @@
 <meta name="author" content="brightertiger" />
 
 
-<meta name="date" content="2022-03-28" />
+<meta name="date" content="2022-04-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -74,48 +74,58 @@
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
-<li class="chapter" data-level="2" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html"><i class="fa fa-check"></i><b>2</b> Decision Trees &amp; Random Forests</a>
+<li class="chapter" data-level="2" data-path="basic-statistics.html"><a href="basic-statistics.html"><i class="fa fa-check"></i><b>2</b> Basic Statistics</a>
 <ul>
-<li class="chapter" data-level="2.0.1" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#decision-trees"><i class="fa fa-check"></i><b>2.0.1</b> Decision Trees</a></li>
-<li class="chapter" data-level="2.0.2" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#splitting"><i class="fa fa-check"></i><b>2.0.2</b> Splitting</a></li>
-<li class="chapter" data-level="2.0.3" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#bias-variance-trade-off"><i class="fa fa-check"></i><b>2.0.3</b> Bias-Variance Trade-off</a></li>
-<li class="chapter" data-level="2.0.4" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#nature-of-decision-trees"><i class="fa fa-check"></i><b>2.0.4</b> Nature of Decision Trees</a></li>
-<li class="chapter" data-level="2.0.5" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#bagging"><i class="fa fa-check"></i><b>2.0.5</b> Bagging</a></li>
-<li class="chapter" data-level="2.0.6" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#random-forest"><i class="fa fa-check"></i><b>2.0.6</b> Random Forest</a></li>
-<li class="chapter" data-level="2.0.7" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#extratrees"><i class="fa fa-check"></i><b>2.0.7</b> ExtraTrees</a></li>
-<li class="chapter" data-level="2.0.8" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#variable-importance"><i class="fa fa-check"></i><b>2.0.8</b> Variable Importance</a></li>
+<li class="chapter" data-level="2.0.1" data-path="basic-statistics.html"><a href="basic-statistics.html#sampling-and-measurement"><i class="fa fa-check"></i><b>2.0.1</b> Sampling and Measurement</a></li>
+<li class="chapter" data-level="2.0.2" data-path="basic-statistics.html"><a href="basic-statistics.html#descriptive-statistics"><i class="fa fa-check"></i><b>2.0.2</b> Descriptive Statistics</a></li>
+<li class="chapter" data-level="2.0.3" data-path="basic-statistics.html"><a href="basic-statistics.html#probability"><i class="fa fa-check"></i><b>2.0.3</b> Probability</a></li>
+<li class="chapter" data-level="2.0.4" data-path="basic-statistics.html"><a href="basic-statistics.html#confidence-interval"><i class="fa fa-check"></i><b>2.0.4</b> Confidence Interval</a></li>
+<li class="chapter" data-level="2.0.5" data-path="basic-statistics.html"><a href="basic-statistics.html#significance-test"><i class="fa fa-check"></i><b>2.0.5</b> Significance Test</a></li>
+<li class="chapter" data-level="2.0.6" data-path="basic-statistics.html"><a href="basic-statistics.html#comparison-of-groups"><i class="fa fa-check"></i><b>2.0.6</b> Comparison of Groups</a></li>
+<li class="chapter" data-level="2.0.7" data-path="basic-statistics.html"><a href="basic-statistics.html#association-between-categorical-variables"><i class="fa fa-check"></i><b>2.0.7</b> Association between Categorical Variables</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>3</b> Boosting</a>
+<li class="chapter" data-level="3" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html"><i class="fa fa-check"></i><b>3</b> Decision Trees &amp; Random Forests</a>
 <ul>
-<li class="chapter" data-level="3.0.1" data-path="boosting.html"><a href="boosting.html#overview"><i class="fa fa-check"></i><b>3.0.1</b> Overview</a></li>
-<li class="chapter" data-level="3.0.2" data-path="boosting.html"><a href="boosting.html#gradient-boosting"><i class="fa fa-check"></i><b>3.0.2</b> Gradient Boosting</a></li>
-<li class="chapter" data-level="3.0.3" data-path="boosting.html"><a href="boosting.html#adaboost-for-classification"><i class="fa fa-check"></i><b>3.0.3</b> Adaboost for Classification</a></li>
-<li class="chapter" data-level="3.0.4" data-path="boosting.html"><a href="boosting.html#notes"><i class="fa fa-check"></i><b>3.0.4</b> Notes</a></li>
+<li class="chapter" data-level="3.0.1" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#decision-trees"><i class="fa fa-check"></i><b>3.0.1</b> Decision Trees</a></li>
+<li class="chapter" data-level="3.0.2" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#splitting"><i class="fa fa-check"></i><b>3.0.2</b> Splitting</a></li>
+<li class="chapter" data-level="3.0.3" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#bias-variance-trade-off"><i class="fa fa-check"></i><b>3.0.3</b> Bias-Variance Trade-off</a></li>
+<li class="chapter" data-level="3.0.4" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#nature-of-decision-trees"><i class="fa fa-check"></i><b>3.0.4</b> Nature of Decision Trees</a></li>
+<li class="chapter" data-level="3.0.5" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#bagging"><i class="fa fa-check"></i><b>3.0.5</b> Bagging</a></li>
+<li class="chapter" data-level="3.0.6" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#random-forest"><i class="fa fa-check"></i><b>3.0.6</b> Random Forest</a></li>
+<li class="chapter" data-level="3.0.7" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#extratrees"><i class="fa fa-check"></i><b>3.0.7</b> ExtraTrees</a></li>
+<li class="chapter" data-level="3.0.8" data-path="decision-trees-random-forests.html"><a href="decision-trees-random-forests.html#variable-importance"><i class="fa fa-check"></i><b>3.0.8</b> Variable Importance</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="xgboost.html"><a href="xgboost.html"><i class="fa fa-check"></i><b>4</b> XGBoost</a>
+<li class="chapter" data-level="4" data-path="boosting.html"><a href="boosting.html"><i class="fa fa-check"></i><b>4</b> Boosting</a>
 <ul>
-<li class="chapter" data-level="4.0.1" data-path="xgboost.html"><a href="xgboost.html#mathematical-details"><i class="fa fa-check"></i><b>4.0.1</b> Mathematical Details</a></li>
-<li class="chapter" data-level="4.0.2" data-path="xgboost.html"><a href="xgboost.html#regression"><i class="fa fa-check"></i><b>4.0.2</b> Regression</a></li>
-<li class="chapter" data-level="4.0.3" data-path="xgboost.html"><a href="xgboost.html#classification"><i class="fa fa-check"></i><b>4.0.3</b> Classification</a></li>
-<li class="chapter" data-level="4.0.4" data-path="xgboost.html"><a href="xgboost.html#optimizations"><i class="fa fa-check"></i><b>4.0.4</b> Optimizations</a></li>
-<li class="chapter" data-level="4.0.5" data-path="xgboost.html"><a href="xgboost.html#comparisons"><i class="fa fa-check"></i><b>4.0.5</b> Comparisons</a></li>
+<li class="chapter" data-level="4.0.1" data-path="boosting.html"><a href="boosting.html#overview"><i class="fa fa-check"></i><b>4.0.1</b> Overview</a></li>
+<li class="chapter" data-level="4.0.2" data-path="boosting.html"><a href="boosting.html#gradient-boosting"><i class="fa fa-check"></i><b>4.0.2</b> Gradient Boosting</a></li>
+<li class="chapter" data-level="4.0.3" data-path="boosting.html"><a href="boosting.html#adaboost-for-classification"><i class="fa fa-check"></i><b>4.0.3</b> Adaboost for Classification</a></li>
+<li class="chapter" data-level="4.0.4" data-path="boosting.html"><a href="boosting.html#notes"><i class="fa fa-check"></i><b>4.0.4</b> Notes</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>5</b> Clustering</a>
+<li class="chapter" data-level="5" data-path="xgboost.html"><a href="xgboost.html"><i class="fa fa-check"></i><b>5</b> XGBoost</a>
 <ul>
-<li class="chapter" data-level="5.0.1" data-path="clustering.html"><a href="clustering.html#hierarchical-agglomerative-clustering"><i class="fa fa-check"></i><b>5.0.1</b> Hierarchical Agglomerative Clustering</a></li>
-<li class="chapter" data-level="5.0.2" data-path="clustering.html"><a href="clustering.html#k-means-clustering"><i class="fa fa-check"></i><b>5.0.2</b> K-Means Clustering</a></li>
-<li class="chapter" data-level="5.0.3" data-path="clustering.html"><a href="clustering.html#spectral-clustering"><i class="fa fa-check"></i><b>5.0.3</b> Spectral Clustering</a></li>
-<li class="chapter" data-level="5.0.4" data-path="clustering.html"><a href="clustering.html#dbscan"><i class="fa fa-check"></i><b>5.0.4</b> DBSCAN</a></li>
+<li class="chapter" data-level="5.0.1" data-path="xgboost.html"><a href="xgboost.html#mathematical-details"><i class="fa fa-check"></i><b>5.0.1</b> Mathematical Details</a></li>
+<li class="chapter" data-level="5.0.2" data-path="xgboost.html"><a href="xgboost.html#regression"><i class="fa fa-check"></i><b>5.0.2</b> Regression</a></li>
+<li class="chapter" data-level="5.0.3" data-path="xgboost.html"><a href="xgboost.html#classification"><i class="fa fa-check"></i><b>5.0.3</b> Classification</a></li>
+<li class="chapter" data-level="5.0.4" data-path="xgboost.html"><a href="xgboost.html#optimizations"><i class="fa fa-check"></i><b>5.0.4</b> Optimizations</a></li>
+<li class="chapter" data-level="5.0.5" data-path="xgboost.html"><a href="xgboost.html#comparisons"><i class="fa fa-check"></i><b>5.0.5</b> Comparisons</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="support-vector-machines.html"><a href="support-vector-machines.html"><i class="fa fa-check"></i><b>6</b> Support Vector Machines</a>
+<li class="chapter" data-level="6" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>6</b> Clustering</a>
 <ul>
-<li class="chapter" data-level="6.0.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linear-svm"><i class="fa fa-check"></i><b>6.0.1</b> Linear SVM</a></li>
+<li class="chapter" data-level="6.0.1" data-path="clustering.html"><a href="clustering.html#hierarchical-agglomerative-clustering"><i class="fa fa-check"></i><b>6.0.1</b> Hierarchical Agglomerative Clustering</a></li>
+<li class="chapter" data-level="6.0.2" data-path="clustering.html"><a href="clustering.html#k-means-clustering"><i class="fa fa-check"></i><b>6.0.2</b> K-Means Clustering</a></li>
+<li class="chapter" data-level="6.0.3" data-path="clustering.html"><a href="clustering.html#spectral-clustering"><i class="fa fa-check"></i><b>6.0.3</b> Spectral Clustering</a></li>
+<li class="chapter" data-level="6.0.4" data-path="clustering.html"><a href="clustering.html#dbscan"><i class="fa fa-check"></i><b>6.0.4</b> DBSCAN</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html"><i class="fa fa-check"></i><b>7</b> Dimensionality Reduction</a>
+<li class="chapter" data-level="7" data-path="support-vector-machines.html"><a href="support-vector-machines.html"><i class="fa fa-check"></i><b>7</b> Support Vector Machines</a>
 <ul>
-<li class="chapter" data-level="7.0.1" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#background"><i class="fa fa-check"></i><b>7.0.1</b> Background</a></li>
-<li class="chapter" data-level="7.0.2" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#principal-component-analysis"><i class="fa fa-check"></i><b>7.0.2</b> Principal Component Analysis</a></li>
-<li class="chapter" data-level="7.0.3" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#stochastic-neighbour-embedding-sne"><i class="fa fa-check"></i><b>7.0.3</b> Stochastic Neighbour Embedding (SNE)</a></li>
+<li class="chapter" data-level="7.0.1" data-path="support-vector-machines.html"><a href="support-vector-machines.html#linear-svm"><i class="fa fa-check"></i><b>7.0.1</b> Linear SVM</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html"><i class="fa fa-check"></i><b>8</b> Dimensionality Reduction</a>
+<ul>
+<li class="chapter" data-level="8.0.1" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#background"><i class="fa fa-check"></i><b>8.0.1</b> Background</a></li>
+<li class="chapter" data-level="8.0.2" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#principal-component-analysis"><i class="fa fa-check"></i><b>8.0.2</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="8.0.3" data-path="dimensionality-reduction.html"><a href="dimensionality-reduction.html#stochastic-neighbour-embedding-sne"><i class="fa fa-check"></i><b>8.0.3</b> Stochastic Neighbour Embedding (SNE)</a></li>
 </ul></li>
 <li class="divider"></li>
 <li>Published with bookdown</a></li>
@@ -137,10 +147,10 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="support-vector-machines" class="section level1" number="6">
-<h1><span class="header-section-number">6</span> Support Vector Machines</h1>
-<div id="linear-svm" class="section level3" number="6.0.1">
-<h3><span class="header-section-number">6.0.1</span> Linear SVM</h3>
+<div id="support-vector-machines" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Support Vector Machines</h1>
+<div id="linear-svm" class="section level3" number="7.0.1">
+<h3><span class="header-section-number">7.0.1</span> Linear SVM</h3>
 <ul>
 <li>Classification setting</li>
 <li>Find the maximum-margin hyperplane that can separate the data</li>

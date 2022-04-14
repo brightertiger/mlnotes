@@ -1,4 +1,12 @@
 about
+basic-statistics
+sampling-and-measurement
+descriptive-statistics
+probability
+confidence-interval
+significance-test
+comparison-of-groups
+association-between-categorical-variables
 decision-trees-random-forests
 decision-trees
 splitting
