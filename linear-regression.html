@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Notes on ML</title>
-  <meta name="description" content="Notes on ML" />
+  <title>9 Linear Regression | Notes on ML</title>
+  <meta name="description" content="9 Linear Regression | Notes on ML" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Notes on ML" />
+  <meta property="og:title" content="9 Linear Regression | Notes on ML" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Notes on ML" />
+  <meta name="twitter:title" content="9 Linear Regression | Notes on ML" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="dimensionality-reduction.html"/>
 
-<link rel="next" href="basic-statistics.html"/>
 <script src="libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -152,26 +152,126 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Notes on ML</h1>
-<p class="author"><em>brightertiger</em></p>
-<p class="date"><em>2022-04-17</em></p>
-</div>
-<div id="about" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> About</h1>
+<div id="linear-regression" class="section level1" number="9">
+<h1><span class="header-section-number">9</span> Linear Regression</h1>
+<div id="bi-variate-regression" class="section level3" number="9.0.1">
+<h3><span class="header-section-number">9.0.1</span> Bi-variate Regression</h3>
 <ul>
-<li><p>Hi I am brightertiger! I am a data scientist looking to expand my knowledge about ML.</p></li>
-<li><p>This is a collection of <em>notes</em> on machine learning concepts based mostly on Statquest along with a few other resources.</p></li>
+<li>Fit a straight line to data
+<ul>
+<li>How the conditional mean of response variable changes with change in explanatory variables</li>
+<li>Minimize SSE: <span class="math inline">\(\sum (y - \hat y)^2\)</span></li>
+<li><span class="math inline">\(E(y|x) = \hat y = a + bx\)</span></li>
+<li><span class="math inline">\(a = \bar y - b \bar x\)</span></li>
+<li><span class="math inline">\(b = S_{xy} / S_{xx} = \sum (y-\bar y)(x - \bar x) / \sum (x - \bar x)^2\)</span></li>
+</ul></li>
+<li>Outlier: If a point lies far off from the rest of the data</li>
+<li>Influential: If a point causes large change in slope of the fitted line</li>
+<li>Variance
+<ul>
+<li>Assume constant variance (homoscedasticity)</li>
+<li><span class="math inline">\(s = \sqrt{SSE \over (n-p)}\)</span></li>
+</ul></li>
+<li>Correlation
+<ul>
+<li>Strength of linear association</li>
+<li><span class="math inline">\(r = \frac{\sum{(x - \bar x)(y - \bar y)}}{\sqrt{(x - \bar x)^2} \sqrt{(y - \bar y)^2}}\)</span></li>
+<li><span class="math inline">\(r = (s_x / s_y) b\)</span>
+<ul>
+<li>In case of standardized variables, r = b</li>
+<li>Regression towards mean
+<ul>
+<li><span class="math inline">\(|r| &lt;= 1\)</span></li>
+<li>Line passes thourgh <span class="math inline">\((\bar x, \bar y)\)</span></li>
+<li>A unit increase in x leads to r increase in y</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>R-Square
+<ul>
+<li>Coefficient of determination</li>
+<li><span class="math inline">\(R^2 = (TSS - SSE) / TSS\)</span></li>
+<li><span class="math inline">\(SSE = \sum(y - \hat y)^2\)</span></li>
+<li><span class="math inline">\(TSS = \sum(y - \bar y)^2\)</span></li>
+<li>Sqaured of correlation coefficient</li>
+</ul></li>
+<li>Statistical Significance
+<ul>
+<li><span class="math inline">\(t = b / se\)</span></li>
+<li><span class="math inline">\(se = s / \sqrt{S_{xx}}\)</span></li>
+<li><span class="math inline">\(s = \sqrt{SSE / (n-2)}\)</span></li>
+<li><span class="math inline">\(t^2 = F = \frac{r^2 / (2-1)}{1-r^2 / n - 2}\)</span></li>
+</ul></li>
+</ul>
+</div>
+<div id="multivariate-regression" class="section level3" number="9.0.2">
+<h3><span class="header-section-number">9.0.2</span> Multivariate Regression</h3>
+<ul>
+<li>Types of relationships
+<ul>
+<li>Spurious: Both variables jointly affected by a third variable</li>
+<li>Mediator: An intervening third variable indirectly affects the two variables</li>
+<li>Suppressor: Association only exists after controlling for a third variable</li>
+</ul></li>
+<li>Extending regression to multiple explanatory variables
+<ul>
+<li><span class="math inline">\(E(y|x) = \hat y = a + b_1 x_1 + b_2 x_2\)</span></li>
+<li>b1 is the relationship between y and x1 after controlling for all other variables (x2)</li>
+<li>b1 is the partial regression coefficient</li>
+<li>It represents first order partial correlation</li>
+<li><span class="math inline">\(r_{yx_1.x_2}= (R^2 - r^2_{yx_2}) / (1 - r^2_{yx_2})\)</span></li>
+</ul></li>
+<li>Partial Regression Plots
+<ul>
+<li>True association between x1 and y after controlling for x2</li>
+<li>Regress y on x2: <span class="math inline">\(\hat y = a&#39; + b&#39;x_2\)</span></li>
+<li>Regress x1 on x2: <span class="math inline">\(\hat x_1 = a&#39;&#39; + b&#39;&#39; x_2\)</span></li>
+<li>Plot the residuals from first regression against the second.</li>
+</ul></li>
+<li>Statistical Significance
+<ul>
+<li>Collective Influence
+<ul>
+<li>F Test</li>
+<li><span class="math inline">\(F = \frac{R^2 / p-1}{(1 - R^2) / (n-p)}\)</span></li>
+</ul></li>
+<li>Individual Influence
+<ul>
+<li>t test</li>
+<li><span class="math inline">\(t = \beta / se\)</span></li>
+<li><span class="math inline">\(s = \sqrt{SSE / n-p}\)</span></li>
+</ul></li>
+<li>Comparing Two Models
+<ul>
+<li>Complete Model: With all the variables</li>
+<li>Reduced Model: Dropping some of the variables</li>
+<li><span class="math inline">\(F = \frac{(SSE_r - SSE_c)/(df_c - df_r)}{SSE_c / df_c}\)</span></li>
+</ul></li>
+</ul></li>
+<li>ANOVA
+<ul>
+<li>Total <span class="math inline">\(SST = \sum (y - \bar y)^2, \; df = n-1\)</span></li>
+<li>Regression <span class="math inline">\(SSR = \sum (\hat y - \bar y)^2, \; df = p-1\)</span></li>
+<li>Error <span class="math inline">\(SSE = \sum (y - \hat y)^2, \; df = n-p\)</span></li>
+<li><span class="math inline">\(F = MSR / MSE = (SSR / df) / (SSE / df)\)</span></li>
+</ul></li>
+<li>Bonferroni Correction
+<ul>
+<li>Multiple comparisons</li>
+<li>Significance Level // # of comparisons</li>
+</ul></li>
+<li></li>
 </ul>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
+<a href="dimensionality-reduction.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="basic-statistics.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

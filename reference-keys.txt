@@ -38,3 +38,6 @@ dimensionality-reduction
 background
 principal-component-analysis
 stochastic-neighbour-embedding-sne
+linear-regression
+bi-variate-regression
+multivariate-regression
